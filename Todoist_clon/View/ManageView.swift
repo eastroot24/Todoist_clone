@@ -1,5 +1,5 @@
 //
-//  NextView.swift
+//  ManageView.swift
 //  Todoist_clon
 //
 //  Created by eastroot on 2/16/25.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct NextView: View {
+struct ManageView: View {
     var body: some View {
-        Text("This is NextView")
+        Text("this is manageScreen")
     }
 }
 
 #Preview {
-    NextView()
+    ManageView()
 }

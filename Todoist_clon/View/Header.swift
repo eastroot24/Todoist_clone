@@ -1,5 +1,5 @@
 //
-//  NextView.swift
+//  Header.swift
 //  Todoist_clon
 //
 //  Created by eastroot on 2/16/25.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct NextView: View {
+struct Header: View {
     var body: some View {
-        Text("This is NextView")
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    NextView()
+    Header()
 }
