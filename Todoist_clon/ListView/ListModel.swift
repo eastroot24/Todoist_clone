@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+//리스트 형식
+struct ListModel: Identifiable {
+    var id = UUID()
+    var title: String?
+    var isCompleted = false
+}
