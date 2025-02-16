@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @State private var todoList = [ListModel]()
     @State private var showSheet = false
-    @State private var newTask = ""
+    @State private var navigateToSecondView = false
     var body: some View {
         VStack {
             HStack {
@@ -24,7 +24,7 @@ struct HomeView: View {
                         .aspectRatio(contentMode: .fit)
                         .foregroundColor(Color.black)
                         .frame(width: 30, height: 20)
-                        
+                    
                 }
                 .padding(.horizontal)
             }
@@ -44,19 +44,33 @@ struct HomeView: View {
                 }
             }
             VStack{
-                //업무 리스트
-                List {
-                    ForEach(todoList.indices, id: \.self) { index in
-                        HStack {
-                            Image(systemName: todoList[index].isCompleted ? "checkmark.circle.fill" : "circle")
-                                .foregroundColor(todoList[index].isCompleted ? .green : .gray)
-                                .onTapGesture {
-                                    todoList[index].isCompleted.toggle()
-                                }
-                            Text(todoList[index].title ?? "아직 일정이 없어요~")
-                                .strikethrough(todoList[index].isCompleted, color: .gray)
+                //일정 목록 확인
+                if !todoList.isEmpty{
+                    //업무 리스트
+                    List {
+                        ForEach(todoList.indices, id: \.self) { index in
+                            HStack {
+                                Image(systemName: todoList[index].isCompleted ? "checkmark.circle.fill" : "circle")
+                                    .foregroundColor(todoList[index].isCompleted ? .green : .gray)
+                                    .onTapGesture {
+                                        todoList[index].isCompleted.toggle()
+                                    }
+                                Text(todoList[index].title!)
+                                    .strikethrough(todoList[index].isCompleted, color: .gray)
+                            }
+                            .padding(5)
                         }
-                        .padding(5)
+                    }
+                }else{
+                    ZStack(alignment: .center) {
+                        Image("empty_task")
+                            .resizable()
+                            .scaledToFill()
+                            .padding(100)
+                        Text("할 일이 없습니다.")
+                            .font(.system(size: 20))
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.center)
                     }
                 }
                 HStack {
@@ -70,7 +84,7 @@ struct HomeView: View {
                             .aspectRatio(contentMode: .fit)
                             .foregroundColor(Color.black)
                             .frame(width: 30, height: 25)
-                            
+                        
                     }
                     .padding(.horizontal)
                     //간격
@@ -83,9 +97,9 @@ struct HomeView: View {
                         Image(systemName: "plus.circle")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .foregroundColor(/*@START_MENU_TOKEN@*/Color(hue: 1.0, saturation: 0.518, brightness: 0.981)/*@END_MENU_TOKEN@*/)
+                            .foregroundColor(Color(hue: 1.0, saturation: 0.518, brightness: 0.981))
                             .frame(width: 45, height: 45)
-                            
+                        
                     }
                     .sheet(isPresented: $showSheet){
                         AddTaskView(showSheet: $showSheet, addTask: addTask)
@@ -96,8 +110,7 @@ struct HomeView: View {
             HStack{
                 VStack {
                     Button(action: {
-                        // 버튼 액션
-                        print("버튼 클릭됨")
+                        // 화면상태 변환
                     }) {
                         Image(systemName: "clock")
                             .resizable()
@@ -167,6 +180,7 @@ struct HomeView: View {
         }
     }
     
+    
     //MARK: - get to Today
     func getToday() -> String{
         let formatter = DateFormatter()
@@ -177,7 +191,7 @@ struct HomeView: View {
     }
     
     //MARK: - Add Task
-    func addTask(_ task: String){
+    func addTask    (_ task: String){
         todoList.append(ListModel(title: task))
     }
 }

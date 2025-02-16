@@ -24,7 +24,7 @@ struct AddTaskView: View {
                     newTask = "" // 입력값 초기화
                 }
                 .padding()
-                .background(Color.blue)
+                .background(Color(hue: 1.0, saturation: 0.518, brightness: 0.981))
                 .foregroundColor(.white)
                 .cornerRadius(10)
 
