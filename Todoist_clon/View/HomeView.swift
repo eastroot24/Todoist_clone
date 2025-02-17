@@ -8,124 +8,87 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var todoList = [ListModel]()
-    @State private var showSheet = false
-    @State private var navigateToSecondView = false
+    @ObservedObject var todoList: TodoListModel
+    @Binding var showSheet: Bool
+    
     var body: some View {
         VStack {
+            headerView
+            todoListView
+        }
+    }
+    
+    // 헤더 뷰
+    private var headerView: some View {
+        VStack {
             HStack {
+                Text("오늘")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding(.horizontal)
                 Spacer()
-                Button(action: {
-                    // 버튼 액션
-                    print("버튼 클릭됨")
-                }) {
-                    Image(systemName: "ellipsis") // 기본 아이콘으로 점 3개
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundColor(Color.black)
-                        .frame(width: 30, height: 20)
-                    
-                }
-                .padding(.horizontal)
             }
-            VStack {
-                HStack {
-                    Text("오늘")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .padding(.horizontal)
-                    Spacer()
-                }
-                HStack {
-                    Text(getToday())
-                        .padding(.horizontal)
-                    Spacer()
-                    
-                }
-            }
-            VStack{
-                //일정 목록 확인
-                if !todoList.isEmpty{
-                    //업무 리스트
-                    List {
-                        ForEach(todoList.indices, id: \.self) { index in
-                            HStack {
-                                Image(systemName: todoList[index].isCompleted ? "checkmark.circle.fill" : "circle")
-                                    .foregroundColor(todoList[index].isCompleted ? .green : .gray)
-                                    .onTapGesture {
-                                        todoList[index].isCompleted.toggle()
-                                    }
-                                Text(todoList[index].title!)
-                                    .strikethrough(todoList[index].isCompleted, color: .gray)
-                            }
-                            .padding(5)
-                        }
-                    }
-                }else{
-                    ZStack(alignment: .center) {
-                        Image("empty_task")
-                            .resizable()
-                            .scaledToFill()
-                            .padding(100)
-                        Text("할 일이 없습니다.")
-                            .font(.system(size: 20))
-                            .fontWeight(.bold)
-                            .multilineTextAlignment(.center)
-                    }
-                }
-                HStack {
-                    // 왼쪽 도움말 버튼
-                    Button(action: {
-                        // 버튼 액션
-                        print("버튼 클릭됨")
-                    }) {
-                        Image(systemName: "questionmark.circle")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .foregroundColor(Color.black)
-                            .frame(width: 30, height: 25)
-                        
-                    }
+            HStack {
+                Text(getToday())
                     .padding(.horizontal)
-                    //간격
-                    Spacer()
-                    // 오른쪽 업무 추가 버튼
-                    Button(action: {
-                        // 버튼 액션
-                        showSheet = true
-                    }) {
-                        Image(systemName: "plus.circle")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .foregroundColor(Color(hue: 1.0, saturation: 0.518, brightness: 0.981))
-                            .frame(width: 45, height: 45)
-                        
-                    }
-                    .sheet(isPresented: $showSheet){
-                        AddTaskView(showSheet: $showSheet, addTask: addTask)
-                    }
-                    .padding(.horizontal)
-                }
+                Spacer()
             }
         }
     }
     
+    // 일정 목록 뷰
+    private var todoListView: some View {
+        VStack {
+            if todoList.lists.isEmpty {
+                noTaskView
+            } else {
+                List {
+                    ForEach(todoList.lists.indices, id: \.self) { index in
+                        todoItemRow(for: index)
+                    }
+                }
+            }
+            //AddTaskButton - 일정 추가 버튼
+            AddTaskButton(todoList: todoList, showSheet: $showSheet)
+        }
+    }
     
-    //MARK: - get to Today
-    func getToday() -> String{
+    // 할 일이 없을 때의 뷰
+    private var noTaskView: some View {
+        ZStack {
+            Image("empty_task")
+                .resizable()
+                .scaledToFill()
+                .padding(100)
+            Text("할 일이 없습니다.")
+                .font(.system(size: 20))
+                .fontWeight(.bold)
+                .multilineTextAlignment(.center)
+            
+        }
+    }
+    
+    // 각 일정 항목 뷰
+    private func todoItemRow(for index: Int) -> some View {
+        HStack {
+            Image(systemName: todoList.lists[index].isCompleted ? "checkmark.circle.fill" : "circle")
+                .foregroundColor(todoList.lists[index].isCompleted ? .green : .gray)
+                .onTapGesture {
+                    todoList.lists[index].isCompleted.toggle()
+                }
+            Text(todoList.lists[index].title ?? "No Title")
+                .strikethrough(todoList.lists[index].isCompleted, color: .gray)
+        }
+        .padding(5)
+    }
+
+    // MARK: - 오늘 날짜
+    func getToday() -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "MM월 dd일 eeee"
         let today = Date()
         return formatter.string(from: today)
     }
-    
-    //MARK: - Add Task
-    func addTask    (_ task: String){
-        todoList.append(ListModel(title: task))
-    }
 }
 
-#Preview {
-    HomeView()
-}

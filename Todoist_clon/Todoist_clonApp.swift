@@ -11,7 +11,7 @@ import SwiftUI
 struct Todoist_clonApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            Main()
         }
     }
 }

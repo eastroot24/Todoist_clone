@@ -13,3 +13,7 @@ struct ListModel: Identifiable {
     var title: String?
     var isCompleted = false
 }
+
+class TodoListModel: ObservableObject {
+    @Published var lists: [ListModel] = []
+}
