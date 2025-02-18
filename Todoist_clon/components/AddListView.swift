@@ -9,32 +9,39 @@ import SwiftUI
 struct AddTaskView: View {
     @Binding var showSheet: Bool
     @State var newTask: String = ""
-    var addTask: (String) -> Void
+    @State var newDate: Date = Date()
+    var addTask: (String, Date) -> Void
 
     var body: some View {
         NavigationView {
             VStack {
                 TextField("할 일을 입력하세요", text: $newTask)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                VStack{
+                    DatePicker("날짜 선택", selection: $newDate, displayedComponents: .date)
+                                   .datePickerStyle(.wheel) // 휠 스타일 적용
+                                   .environment(\.locale, Locale(identifier: "ko_KR"))
+                    Button("저장") {
+                        addTask(newTask, newDate)
+                        showSheet = false // 입력 후 창 닫기
+                        newTask = "" // 입력값 초기화
+                    }
                     .padding()
-
-                Button("저장") {
-                    addTask(newTask)
-                    showSheet = false // 입력 후 창 닫기
-                    newTask = "" // 입력값 초기화
+                    .background(Color(hue: 1.0, saturation: 0.518, brightness: 0.981))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
                 }
-                .padding()
-                .background(Color(hue: 1.0, saturation: 0.518, brightness: 0.981))
-                .foregroundColor(.white)
-                .cornerRadius(10)
-
-                Spacer()
             }
-            .padding()
+            .scaledToFit()
             .navigationTitle("새로운 일정 추가")
             .navigationBarItems(trailing: Button("닫기") {
                 showSheet = false
             })
+                .foregroundStyle(Color.red)
+                .fontWeight(.bold)
+                .padding()
+            Spacer()
+            
         }
     }
 }

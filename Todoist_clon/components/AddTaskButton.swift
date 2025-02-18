@@ -33,8 +33,8 @@ struct AddTaskButton: View {
         }
     }
     //MARK: - Add Task
-    func addTask    (_ task: String){
-        todoList.lists.append(ListModel(title: task))
+    func addTask    (task: String, date: Date){
+        todoList.lists.append(ListModel(title: task, date: date))
     }
 
 }

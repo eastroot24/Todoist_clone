@@ -12,6 +12,7 @@ struct ListModel: Identifiable {
     var id = UUID()
     var title: String?
     var isCompleted = false
+    var date: Date
 }
 
 class TodoListModel: ObservableObject {

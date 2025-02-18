@@ -10,11 +10,12 @@ import SwiftUI
 struct HomeView: View {
     @ObservedObject var todoList: TodoListModel
     @Binding var showSheet: Bool
+    let today = Date()
     
     var body: some View {
         VStack {
             headerView
-            todoListView
+            todoListView()
         }
     }
     
@@ -29,23 +30,43 @@ struct HomeView: View {
                 Spacer()
             }
             HStack {
-                Text(getToday())
+                Text(getDate(from: Date()))
                     .padding(.horizontal)
                 Spacer()
             }
         }
     }
+    //
     
     // 일정 목록 뷰
-    private var todoListView: some View {
+    func todoListView() -> some View {
         VStack {
             if todoList.lists.isEmpty {
                 noTaskView
-            } else {
-                List {
-                    ForEach(todoList.lists.indices, id: \.self) { index in
-                        todoItemRow(for: index)
+            }
+            else{
+                List{
+                    // 오늘 이전 업무
+                    // 오늘날짜를 완전히 제외 시킨다.(!Calendar.current.isDateInToday($0.date))
+                    let pastItems = todoList.lists.filter { $0.date < today && !Calendar.current.isDateInToday($0.date)  }
+                    if !pastItems.isEmpty {
+                        Section(header: Text("기간 지난 업무")){
+                            ForEach(pastItems) { task in
+                                todoItemRow(for: task)
+                            }
+                        }
+                        
                     }
+                    //오늘 업무
+                    let todayItems = todoList.lists.filter { Calendar.current.isDate($0.date, inSameDayAs: today) }
+                    if !todayItems.isEmpty{
+                        Section(header: Text("오늘의 업무")){
+                            ForEach(todayItems) { task in
+                                todoItemRow(for: task)
+                            }
+                        }
+                    }
+                    
                 }
             }
             //AddTaskButton - 일정 추가 버튼
@@ -69,26 +90,33 @@ struct HomeView: View {
     }
     
     // 각 일정 항목 뷰
-    private func todoItemRow(for index: Int) -> some View {
-        HStack {
-            Image(systemName: todoList.lists[index].isCompleted ? "checkmark.circle.fill" : "circle")
-                .foregroundColor(todoList.lists[index].isCompleted ? .green : .gray)
-                .onTapGesture {
-                    todoList.lists[index].isCompleted.toggle()
-                }
-            Text(todoList.lists[index].title ?? "No Title")
-                .strikethrough(todoList.lists[index].isCompleted, color: .gray)
-        }
-        .padding(5)
+    private func todoItemRow(for task: ListModel) -> some View{
+        let taskDate = getDate(from: task.date)
+        //중복 항목 필터링
+        return HStack {
+            Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
+                    .foregroundColor(task.isCompleted ? .green : .gray)
+                    .onTapGesture {
+                        if let index = todoList.lists.firstIndex(where: { $0.id == task.id }) {
+                                todoList.lists[index].isCompleted.toggle()
+                            }
+                    }
+                Text(task.title ?? "No Title")
+                .strikethrough(task.isCompleted, color: .gray)
+                Text(taskDate)
+            }
+            .padding(5)
     }
-
+    
     // MARK: - 오늘 날짜
-    func getToday() -> String {
+    func getDate(from date: Date) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "MM월 dd일 eeee"
-        let today = Date()
-        return formatter.string(from: today)
+        return formatter.string(from: date)
     }
 }
 
+#Preview {
+    HomeView(todoList: .init(), showSheet: .constant(false))
+}

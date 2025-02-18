@@ -17,45 +17,42 @@ struct Main: View {
                 //홈화면
                 HomeView(todoList: todoList, showSheet: $showSheet)
                     .tabItem {
-                        Image(systemName: "clock.circle")
+                        Image(systemName: "clock")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .foregroundColor(Color.black)
                             .frame(width: 30, height: 30)
                         Text("오늘")
                     }
                 //다음화면
                 NextView()
                     .tabItem {
-                        Image(systemName: "calendar.circle")
+                        Image(systemName: "calendar")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .foregroundColor(Color.black)
                             .frame(width: 30, height: 30)
                         Text("다음")
                             .fontWeight(.bold)
                     }
                 SearchView()
                     .tabItem {
-                        Image(systemName: "magnifyingglass.circle")
+                        Image(systemName: "magnifyingglass")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .foregroundColor(Color.black)
                             .frame(width: 40, height: 35)
                         Text("검색")
                             .fontWeight(.bold)
                     }
                 ManageView()
                     .tabItem {
-                        Image(systemName: "list.bullet.circle")
+                        Image(systemName: "list.bullet")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .foregroundColor(Color.black)
                             .frame(width: 30, height: 30)
                         Text("목록")
                             .fontWeight(.bold)
                     }
             }
+            .accentColor(Color.red)
             
         }
     }
