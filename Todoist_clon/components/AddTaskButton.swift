@@ -16,8 +16,10 @@ struct AddTaskButton: View {
             Spacer()
             // 오른쪽 업무 추가 버튼
             Button(action: {
-                // 버튼 액션
-                showSheet = true
+                if !showSheet {
+                    showSheet = true
+                }
+                
             }) {
                 Image(systemName: "plus.circle")
                     .resizable()

@@ -9,13 +9,16 @@ import SwiftUI
 
 struct Main: View {
     @StateObject var todoList = TodoListModel()
-    @State private var showSheet = false
+    @State private var showHomeSheet = false
+    @State private var showNextSheet = false
+    @State private var showSearchSheet = false
+    @State private var showManageSheet = false
     var body: some View {
         VStack {
             FirstHeader()
             TabView {
                 //홈화면
-                HomeView(todoList: todoList, showSheet: $showSheet)
+                HomeView(todoList: todoList, showSheet: $showHomeSheet)
                     .tabItem {
                         Image(systemName: "clock")
                             .resizable()
@@ -24,7 +27,7 @@ struct Main: View {
                         Text("오늘")
                     }
                 //다음화면
-                NextView()
+                NextView(todoList: todoList, showSheet: $showNextSheet)
                     .tabItem {
                         Image(systemName: "calendar")
                             .resizable()

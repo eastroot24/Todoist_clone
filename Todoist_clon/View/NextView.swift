@@ -8,11 +8,22 @@
 import SwiftUI
 
 struct NextView: View {
+    @ObservedObject var todoList: TodoListModel
+    @Binding var showSheet: Bool
+    @State private var selectedDate: Date = Date()
     var body: some View {
-        Text("This is NextView")
+        VStack{
+                    Text("다음")
+                        .font(.title)
+                        .fontWeight(.bold)
+                NextCalendar(selectedDate: $selectedDate)
+                NextListView(selectedDate: $selectedDate, todoList: todoList)
+            
+                        //AddTaskButton - 일정 추가 버튼
+            AddTaskButton(todoList: todoList, showSheet: $showSheet)
+                   
+                }
+        
+            
     }
-}
-
-#Preview {
-    NextView()
 }
