@@ -36,7 +36,7 @@ struct Main: View {
                         Text("다음")
                             .fontWeight(.bold)
                     }
-                SearchView()
+                SearchView(todoList: todoList, showSheet: $showSearchSheet)
                     .tabItem {
                         Image(systemName: "magnifyingglass")
                             .resizable()
@@ -45,7 +45,7 @@ struct Main: View {
                         Text("검색")
                             .fontWeight(.bold)
                     }
-                ManageView()
+                ManageView(todoList: todoList, showSheet: $showManageSheet)
                     .tabItem {
                         Image(systemName: "list.bullet")
                             .resizable()

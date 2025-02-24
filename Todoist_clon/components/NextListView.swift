@@ -77,7 +77,6 @@ struct NextListView: View {
                     }
                 }
             
-            
         }
     }
     

@@ -16,7 +16,16 @@ struct HomeView: View {
         VStack {
             headerView
             todoListView()
+            Spacer()
         }
+        .overlay(
+            VStack{
+                Spacer()
+                //AddTaskButton - 일정 추가 버튼
+                AddTaskButton(todoList: todoList, showSheet: $showSheet)
+                    .padding(.vertical, 20)
+            }
+        )
     }
     
     // 헤더 뷰
@@ -69,9 +78,10 @@ struct HomeView: View {
                     
                 }
             }
-            //AddTaskButton - 일정 추가 버튼
-            AddTaskButton(todoList: todoList, showSheet: $showSheet)
+            
         }
+        
+        
     }
     
     // 할 일이 없을 때의 뷰
@@ -79,8 +89,7 @@ struct HomeView: View {
         ZStack {
             Image("empty_task")
                 .resizable()
-                .scaledToFill()
-                .padding(100)
+                .scaledToFit()
             Text("할 일이 없습니다.")
                 .font(.system(size: 20))
                 .fontWeight(.bold)
