@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct Main: View {
-    @StateObject var todoList = TodoListModel()
+    @ObservedObject var todoListViewModel: TodoListViewModel
+    
     @State private var showHomeSheet = false
     @State private var showNextSheet = false
     @State private var showSearchSheet = false
@@ -18,7 +19,7 @@ struct Main: View {
             FirstHeader()
             TabView {
                 //홈화면
-                HomeView(todoList: todoList, showSheet: $showHomeSheet)
+                HomeView(todoListViewModel: todoListViewModel, showSheet: $showHomeSheet)
                     .tabItem {
                         Image(systemName: "clock")
                             .resizable()
@@ -27,7 +28,7 @@ struct Main: View {
                         Text("오늘")
                     }
                 //다음화면
-                NextView(todoList: todoList, showSheet: $showNextSheet)
+                NextView(todoListViewModel: todoListViewModel, showSheet: $showNextSheet)
                     .tabItem {
                         Image(systemName: "calendar")
                             .resizable()
@@ -36,7 +37,7 @@ struct Main: View {
                         Text("다음")
                             .fontWeight(.bold)
                     }
-                SearchView(todoList: todoList, showSheet: $showSearchSheet)
+                SearchView(todoListViewModel: todoListViewModel, showSheet: $showSearchSheet)
                     .tabItem {
                         Image(systemName: "magnifyingglass")
                             .resizable()
@@ -45,7 +46,7 @@ struct Main: View {
                         Text("검색")
                             .fontWeight(.bold)
                     }
-                ManageView(todoList: todoList, showSheet: $showManageSheet)
+                ManageView(todoListViewModel: todoListViewModel, showSheet: $showManageSheet)
                     .tabItem {
                         Image(systemName: "list.bullet")
                             .resizable()
@@ -62,5 +63,5 @@ struct Main: View {
 }
 
 #Preview {
-    Main()
+    //Main(todoListViewModel: .init(context: .init()))
 }

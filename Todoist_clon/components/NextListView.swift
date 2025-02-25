@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NextListView: View {
     @Binding var selectedDate: Date
-    @ObservedObject var todoList: TodoListModel
+    @ObservedObject var todoListViewModel: TodoListViewModel
     let today = Date()
     var endDate: Date {
         let calendar = Calendar.current
@@ -29,7 +29,10 @@ struct NextListView: View {
             VStack(alignment: .leading){
                 // 오늘 이전 업무
                 // 오늘날짜를 완전히 제외 시킨다.(!Calendar.current.isDateInToday($0.date))
-                let pastItems = todoList.lists.filter { $0.date < today && !Calendar.current.isDateInToday($0.date)  }
+                let pastItems = todoListViewModel.todoItems.compactMap { item -> TodoItem? in
+                    guard let date = item.date else { return nil } // ✅ date가 nil이면 제거
+                    return date < today && !Calendar.current.isDateInToday(date) ? item : nil
+                }
                 if !pastItems.isEmpty {
                     Section(header: Text("기간 지난 업무")){
                         ForEach(pastItems) { task in
@@ -39,9 +42,15 @@ struct NextListView: View {
                     
                 }
                 //오늘 업무
-                let todayItems = todoList.lists.filter { Calendar.current.isDate($0.date, inSameDayAs: today) }
+                let todayItems = todoListViewModel.todoItems.compactMap { item -> TodoItem? in
+                    guard let date = item.date else{ return nil }
+                    return Calendar.current.isDate(date, inSameDayAs: today) ? item : nil
+                }
                 //미래 업무
-                let futureItems = todoList.lists.filter { $0.date >= today }
+                let futureItems = todoListViewModel.todoItems.compactMap { item -> TodoItem? in
+                    guard let date = item.date else { return nil } // ✅ date가 nil이면 제거
+                    return date >= today ? item : nil
+                }
                 ForEach(datesInRange(), id: \.self) { date in
                     let yearDate = getYear(from: date) + getDate(from: date)
                     VStack(alignment: .leading) {
@@ -60,7 +69,7 @@ struct NextListView: View {
                         }else if date > today{
                             //미래 업무
                             ForEach(futureItems) { task in
-                                if Calendar.current.isDate(task.date, inSameDayAs: date) {
+                                if Calendar.current.isDate(task.date!, inSameDayAs: date) {
                                     todoItemRow(for: task)
                                 }
                             }
@@ -68,9 +77,9 @@ struct NextListView: View {
                     }
                 }
             }
-                .onChange(of: selectedDate) { newValue in
+                .onChange(of: selectedDate) {
                     withAnimation {
-                        let targetDate = getDate(from: newValue)
+                        let targetDate = getDate(from: selectedDate)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             proxy.scrollTo(targetDate, anchor: .top)
                                 }
@@ -94,15 +103,15 @@ struct NextListView: View {
         return dates
     }
     // 각 일정 항목 뷰
-    private func todoItemRow(for task: ListModel) -> some View{
-        let taskDate = getDate(from: task.date)
+    private func todoItemRow(for task: TodoItem) -> some View{
+        let taskDate = getDate(from: task.date!)
         //중복 항목 필터링
         return HStack {
             Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
                 .foregroundColor(task.isCompleted ? .green : .gray)
                 .onTapGesture {
-                    if let index = todoList.lists.firstIndex(where: { $0.id == task.id }) {
-                        todoList.lists[index].isCompleted.toggle()
+                    if todoListViewModel.todoItems.firstIndex(where: { $0.id == task.id }) != nil {
+                        todoListViewModel.deleteItem(item: task)
                     }
                 }
             Text(task.title ?? "No Title")

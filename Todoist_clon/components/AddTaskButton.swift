@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct AddTaskButton: View {
-    @ObservedObject var todoList: TodoListModel
+    @ObservedObject var todoListViewModel: TodoListViewModel
+    
+//    @ObservedObject var todoList: TodoListModel
     @Binding var showSheet: Bool
     var body: some View {
         HStack {
@@ -36,7 +38,7 @@ struct AddTaskButton: View {
     }
     //MARK: - Add Task
     func addTask    (task: String, date: Date){
-        todoList.lists.append(ListModel(title: task, date: date))
+        todoListViewModel.addItem(title: task, date: date)
     }
 
 }

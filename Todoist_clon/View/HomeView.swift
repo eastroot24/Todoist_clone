@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct HomeView: View {
-    @ObservedObject var todoList: TodoListModel
+    @ObservedObject var todoListViewModel: TodoListViewModel
     @Binding var showSheet: Bool
     let today = Date()
     
@@ -22,7 +23,7 @@ struct HomeView: View {
             VStack{
                 Spacer()
                 //AddTaskButton - 일정 추가 버튼
-                AddTaskButton(todoList: todoList, showSheet: $showSheet)
+                AddTaskButton(todoListViewModel: todoListViewModel, showSheet: $showSheet)
                     .padding(.vertical, 20)
             }
         )
@@ -50,14 +51,17 @@ struct HomeView: View {
     // 일정 목록 뷰
     func todoListView() -> some View {
         VStack {
-            if todoList.lists.isEmpty {
+            if todoListViewModel.todoItems.isEmpty {
                 noTaskView
             }
             else{
                 List{
                     // 오늘 이전 업무
                     // 오늘날짜를 완전히 제외 시킨다.(!Calendar.current.isDateInToday($0.date))
-                    let pastItems = todoList.lists.filter { $0.date < today && !Calendar.current.isDateInToday($0.date)  }
+                    let pastItems = todoListViewModel.todoItems.compactMap { item -> TodoItem? in
+                        guard let date = item.date else { return nil } // ✅ date가 nil이면 제거
+                        return date < today && !Calendar.current.isDateInToday(date) ? item : nil
+                    }
                     if !pastItems.isEmpty {
                         Section(header: Text("기간 지난 업무")){
                             ForEach(pastItems) { task in
@@ -67,7 +71,10 @@ struct HomeView: View {
                         
                     }
                     //오늘 업무
-                    let todayItems = todoList.lists.filter { Calendar.current.isDate($0.date, inSameDayAs: today) }
+                    let todayItems = todoListViewModel.todoItems.compactMap { item -> TodoItem? in
+                        guard let date = item.date else{ return nil }
+                        return Calendar.current.isDate(date, inSameDayAs: today) ? item : nil
+                    }
                     if !todayItems.isEmpty{
                         Section(header: Text("오늘의 업무")){
                             ForEach(todayItems) { task in
@@ -99,16 +106,14 @@ struct HomeView: View {
     }
     
     // 각 일정 항목 뷰
-    private func todoItemRow(for task: ListModel) -> some View{
-        let taskDate = getDate(from: task.date)
+    private func todoItemRow(for task: TodoItem) -> some View{
+        let taskDate = getDate(from: task.date!)
         //중복 항목 필터링
         return HStack {
             Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
                     .foregroundColor(task.isCompleted ? .green : .gray)
                     .onTapGesture {
-                        if let index = todoList.lists.firstIndex(where: { $0.id == task.id }) {
-                                todoList.lists[index].isCompleted.toggle()
-                            }
+                        todoListViewModel.deleteItem(item: task)
                     }
                 Text(task.title ?? "No Title")
                 .strikethrough(task.isCompleted, color: .gray)
@@ -116,6 +121,12 @@ struct HomeView: View {
             }
             .padding(5)
     }
+    // ✅ Todo 완료 상태 토글
+        private func toggleCompletion(task: TodoItem) {
+            let persistenceController = PersistenceController.shared
+            task.isCompleted.toggle()
+            persistenceController.saveContext()
+        }
     
     // MARK: - 오늘 날짜
     func getDate(from date: Date) -> String {
@@ -127,5 +138,5 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView(todoList: .init(), showSheet: .constant(false))
+//    HomeView(viewContext: .init(), todoList: .init(), showSheet: .constant(false))
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ManageView: View {
-    @ObservedObject var todoList: TodoListModel
+    @ObservedObject var todoListViewModel: TodoListViewModel
     @Binding var showSheet: Bool
     @State private var showMangeBox = false // 관리함 표시여부
     var body: some View {
@@ -71,17 +71,17 @@ struct ManageView: View {
                 VStack{
                     Spacer()
                     //AddTaskButton - 일정 추가 버튼
-                    AddTaskButton(todoList: todoList, showSheet: $showSheet)
+                    AddTaskButton(todoListViewModel: todoListViewModel, showSheet: $showSheet)
                         .padding(.vertical, 20)
                 }
             )
             .sheet(isPresented: $showMangeBox) {
-                ManageBoxView(todoList: todoList)
+                ManageBoxView(todoListViewModel: todoListViewModel)
             }
         }
     }
 }
 
 #Preview {
-    ManageView(todoList: .init(), showSheet: .constant(false))
+    //ManageView(todoList: .init(), showSheet: .constant(false))
 }

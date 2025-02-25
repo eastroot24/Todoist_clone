@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct Todoist_clonApp: App {
+    let persistenceController = PersistenceController.shared
+    @StateObject var todoListViewModel = TodoListViewModel(context: PersistenceController.shared.container.viewContext)
     var body: some Scene {
         WindowGroup {
-            Main()
+            Main(todoListViewModel: todoListViewModel)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

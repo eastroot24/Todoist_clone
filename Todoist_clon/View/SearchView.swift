@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    @ObservedObject var todoList: TodoListModel
+    @ObservedObject var todoListViewModel: TodoListViewModel
     @Binding var showSheet: Bool
     @State private var searchText = "" // 🔍 검색어
     
@@ -55,12 +55,9 @@ struct SearchView: View {
             
             // 📝 검색 결과 리스트
             List {
-                let filteredTasks = todoList.lists.filter { task in
-                    !searchText.isEmpty && (task.title?.contains(searchText) ?? false)
-                }
-                let groupedTasks = Dictionary(grouping: filteredTasks) { task in
-                    Calendar.current.startOfDay(for: task.date)
-                }
+                let filteredTasks = filteredTodoItems()
+                let groupedTasks = groupTasksByDate(filteredTasks)
+                
                 // 🔥 날짜별 섹션으로 나눠서 검색 결과 표시
                 ForEach(groupedTasks.keys.sorted(), id: \.self) { date in
                     Section(header: Text(getDate(from: date))) {
@@ -74,14 +71,15 @@ struct SearchView: View {
                 VStack{
                     Spacer()
                     //AddTaskButton - 일정 추가 버튼
-                    AddTaskButton(todoList: todoList, showSheet: $showSheet)
+                    AddTaskButton(todoListViewModel: todoListViewModel, showSheet: $showSheet)
                         .padding(.vertical, 20)
                 }
             )
-                
+            
         }
         .navigationTitle("검색")
     }
+    
     // 📅 날짜 포맷
     func getDate(from date: Date) -> String {
         let formatter = DateFormatter()
@@ -91,21 +89,40 @@ struct SearchView: View {
     }
     
     // 📝 개별 일정 항목 UI
-    private func todoItemRow(for task: ListModel) -> some View {
+    private func todoItemRow(for task: TodoItem) -> some View {
         HStack {
             Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
                 .foregroundColor(task.isCompleted ? .green : .gray)
                 .onTapGesture {
-                    if let index = todoList.lists.firstIndex(where: { $0.id == task.id }) {
-                        todoList.lists[index].isCompleted.toggle()
+                    if todoListViewModel.todoItems.firstIndex(where: { $0.id == task.id }) != nil {
+                        todoListViewModel.deleteItem(item: task)
                     }
                 }
             Text(task.title ?? "No Title")
                 .strikethrough(task.isCompleted, color: .gray)
         }
     }
+    
+    // 📝 필터링된 작업들
+    private func filteredTodoItems() -> [TodoItem] {
+        return todoListViewModel.todoItems.filter { task in
+            !searchText.isEmpty && (task.title?.contains(searchText) ?? false)
+        }
+    }
+    
+    // 📅 날짜별로 작업 그룹화
+    private func groupTasksByDate(_ tasks: [TodoItem]) -> [Date: [TodoItem]] {
+        return Dictionary(grouping: tasks) { task in
+            if let date = task.date {
+                return Calendar.current.startOfDay(for: date)
+            } else {
+                return Date()
+            }
+        }
+    }
 }
 
 #Preview {
-    SearchView(todoList: .init(), showSheet: .constant(false))}
-               
+    //SearchView(todoList: .init(), showSheet: .constant(false))
+}
+
