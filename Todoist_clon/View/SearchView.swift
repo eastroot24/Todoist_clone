@@ -62,7 +62,7 @@ struct SearchView: View {
                 ForEach(groupedTasks.keys.sorted(), id: \.self) { date in
                     Section(header: Text(getDate(from: date))) {
                         ForEach(groupedTasks[date] ?? []) { task in
-                            todoItemRow(for: task)
+                            todoListViewModel.todoItemRow(for: task)
                         }
                     }
                 }
@@ -87,22 +87,7 @@ struct SearchView: View {
         formatter.dateFormat = "yyyy년 MM월 dd일"
         return formatter.string(from: date)
     }
-    
-    // 📝 개별 일정 항목 UI
-    private func todoItemRow(for task: TodoItem) -> some View {
-        HStack {
-            Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
-                .foregroundColor(task.isCompleted ? .green : .gray)
-                .onTapGesture {
-                    if todoListViewModel.todoItems.firstIndex(where: { $0.id == task.id }) != nil {
-                        todoListViewModel.deleteItem(item: task)
-                    }
-                }
-            Text(task.title ?? "No Title")
-                .strikethrough(task.isCompleted, color: .gray)
-        }
-    }
-    
+
     // 📝 필터링된 작업들
     private func filteredTodoItems() -> [TodoItem] {
         return todoListViewModel.todoItems.filter { task in

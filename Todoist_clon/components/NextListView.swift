@@ -26,7 +26,7 @@ struct NextListView: View {
     // 일정 목록 뷰
     func todoListView(proxy: ScrollViewProxy) -> some View {
         ScrollView {
-            VStack(alignment: .leading){
+            VStack{
                 // 오늘 이전 업무
                 // 오늘날짜를 완전히 제외 시킨다.(!Calendar.current.isDateInToday($0.date))
                 let pastItems = todoListViewModel.todoItems.compactMap { item -> TodoItem? in
@@ -36,7 +36,7 @@ struct NextListView: View {
                 if !pastItems.isEmpty {
                     Section(header: Text("기간 지난 업무")){
                         ForEach(pastItems) { task in
-                            todoItemRow(for: task)
+                            todoListViewModel.todoItemRow(for: task)
                         }
                     }
                     
@@ -53,7 +53,7 @@ struct NextListView: View {
                 }
                 ForEach(datesInRange(), id: \.self) { date in
                     let yearDate = getYear(from: date) + getDate(from: date)
-                    VStack(alignment: .leading) {
+                    LazyVStack(alignment: .leading) {
                         if (getYear(from: date) != getYear(from: today)){
                             Text(yearDate).id(getDate(from: date))
                         }
@@ -64,23 +64,23 @@ struct NextListView: View {
                         //오늘 업무
                         if date == today {
                             ForEach(todayItems) { task in
-                                todoItemRow(for: task)
+                                todoListViewModel.todoItemRow(for: task)
                             }
                         }else if date > today{
                             //미래 업무
                             ForEach(futureItems) { task in
-                                if Calendar.current.isDate(task.date!, inSameDayAs: date) {
-                                    todoItemRow(for: task)
-                                }
+                                if let taskDate = task.date, Calendar.current.isDate(taskDate, inSameDayAs: date) {
+                                        todoListViewModel.todoItemRow(for: task)
+                                    }
                             }
                         }
                     }
                 }
             }
-                .onChange(of: selectedDate) {
+            .onChange(of: selectedDate) {
                     withAnimation {
                         let targetDate = getDate(from: selectedDate)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        DispatchQueue.main.async{
                             proxy.scrollTo(targetDate, anchor: .top)
                                 }
                     }
@@ -101,24 +101,6 @@ struct NextListView: View {
         }
         
         return dates
-    }
-    // 각 일정 항목 뷰
-    private func todoItemRow(for task: TodoItem) -> some View{
-        let taskDate = getDate(from: task.date!)
-        //중복 항목 필터링
-        return HStack {
-            Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
-                .foregroundColor(task.isCompleted ? .green : .gray)
-                .onTapGesture {
-                    if todoListViewModel.todoItems.firstIndex(where: { $0.id == task.id }) != nil {
-                        todoListViewModel.deleteItem(item: task)
-                    }
-                }
-            Text(task.title ?? "No Title")
-                .strikethrough(task.isCompleted, color: .gray)
-            Text(taskDate)
-        }
-        .padding(5)
     }
     
     // MARK: - 오늘 날짜

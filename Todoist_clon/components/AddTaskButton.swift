@@ -10,7 +10,6 @@ import SwiftUI
 struct AddTaskButton: View {
     @ObservedObject var todoListViewModel: TodoListViewModel
     
-//    @ObservedObject var todoList: TodoListModel
     @Binding var showSheet: Bool
     var body: some View {
         HStack {

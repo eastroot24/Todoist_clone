@@ -13,8 +13,6 @@ struct Todoist_clonApp: App {
     @StateObject var todoListViewModel = TodoListViewModel(context: PersistenceController.shared.container.viewContext)
     var body: some Scene {
         WindowGroup {
-            Main(todoListViewModel: todoListViewModel)
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-        }
+            Main(todoListViewModel: todoListViewModel)        }
     }
 }

@@ -76,7 +76,7 @@ struct ManageView: View {
                 }
             )
             .sheet(isPresented: $showMangeBox) {
-                ManageBoxView(todoListViewModel: todoListViewModel)
+                ManageBoxView(todoListViewModel: todoListViewModel, showSheet: $showSheet)
             }
         }
     }

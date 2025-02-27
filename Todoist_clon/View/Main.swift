@@ -9,7 +9,6 @@ import SwiftUI
 
 struct Main: View {
     @ObservedObject var todoListViewModel: TodoListViewModel
-    
     @State private var showHomeSheet = false
     @State private var showNextSheet = false
     @State private var showSearchSheet = false

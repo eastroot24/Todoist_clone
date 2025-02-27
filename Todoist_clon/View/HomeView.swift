@@ -51,7 +51,11 @@ struct HomeView: View {
     // 일정 목록 뷰
     func todoListView() -> some View {
         VStack {
-            if todoListViewModel.todoItems.isEmpty {
+            let futureItems = todoListViewModel.todoItems.compactMap { item -> TodoItem? in
+                guard let date = item.date else { return nil }
+                return date >= today ? item : nil
+            }
+            if todoListViewModel.todoItems.isEmpty || !futureItems.isEmpty {
                 noTaskView
             }
             else{
@@ -65,7 +69,7 @@ struct HomeView: View {
                     if !pastItems.isEmpty {
                         Section(header: Text("기간 지난 업무")){
                             ForEach(pastItems) { task in
-                                todoItemRow(for: task)
+                                todoListViewModel.todoItemRow(for: task)
                             }
                         }
                         
@@ -78,7 +82,7 @@ struct HomeView: View {
                     if !todayItems.isEmpty{
                         Section(header: Text("오늘의 업무")){
                             ForEach(todayItems) { task in
-                                todoItemRow(for: task)
+                                todoListViewModel.todoItemRow(for: task)
                             }
                         }
                     }
@@ -104,29 +108,6 @@ struct HomeView: View {
             
         }
     }
-    
-    // 각 일정 항목 뷰
-    private func todoItemRow(for task: TodoItem) -> some View{
-        let taskDate = getDate(from: task.date!)
-        //중복 항목 필터링
-        return HStack {
-            Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
-                    .foregroundColor(task.isCompleted ? .green : .gray)
-                    .onTapGesture {
-                        todoListViewModel.deleteItem(item: task)
-                    }
-                Text(task.title ?? "No Title")
-                .strikethrough(task.isCompleted, color: .gray)
-                Text(taskDate)
-            }
-            .padding(5)
-    }
-    // ✅ Todo 완료 상태 토글
-        private func toggleCompletion(task: TodoItem) {
-            let persistenceController = PersistenceController.shared
-            task.isCompleted.toggle()
-            persistenceController.saveContext()
-        }
     
     // MARK: - 오늘 날짜
     func getDate(from date: Date) -> String {
