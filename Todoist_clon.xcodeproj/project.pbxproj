@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		33DBED9FC9CB7EB73CB6E911 /* Pods_Todoist_clon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF7D4E3D119855500310C7BF /* Pods_Todoist_clon.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		D3E88FDE2D60A50500E44996 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,9 +28,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		322F8603D9F9F33EA33B2F78 /* Pods-Todoist_clon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Todoist_clon.debug.xcconfig"; path = "Target Support Files/Pods-Todoist_clon/Pods-Todoist_clon.debug.xcconfig"; sourceTree = "<group>"; };
+		5FB315710E2D93E8444BB61E /* Pods-Todoist_clon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Todoist_clon.release.xcconfig"; path = "Target Support Files/Pods-Todoist_clon/Pods-Todoist_clon.release.xcconfig"; sourceTree = "<group>"; };
 		D3E88FCD2D60A50400E44996 /* Todoist_clon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todoist_clon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3E88FDD2D60A50500E44996 /* Todoist_clonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Todoist_clonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3E88FE72D60A50500E44996 /* Todoist_clonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Todoist_clonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF7D4E3D119855500310C7BF /* Pods_Todoist_clon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Todoist_clon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33DBED9FC9CB7EB73CB6E911 /* Pods_Todoist_clon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +80,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		91C32CB9A57FAE082FD1BA53 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FF7D4E3D119855500310C7BF /* Pods_Todoist_clon.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A2ACB45BDD05ECB7958EF6D3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				322F8603D9F9F33EA33B2F78 /* Pods-Todoist_clon.debug.xcconfig */,
+				5FB315710E2D93E8444BB61E /* Pods-Todoist_clon.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		D3E88FC42D60A50400E44996 = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +104,8 @@
 				D3E88FE02D60A50500E44996 /* Todoist_clonTests */,
 				D3E88FEA2D60A50500E44996 /* Todoist_clonUITests */,
 				D3E88FCE2D60A50400E44996 /* Products */,
+				A2ACB45BDD05ECB7958EF6D3 /* Pods */,
+				91C32CB9A57FAE082FD1BA53 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,9 +126,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D3E88FF12D60A50500E44996 /* Build configuration list for PBXNativeTarget "Todoist_clon" */;
 			buildPhases = (
+				EAA93F29796E3FAED4FB80C4 /* [CP] Check Pods Manifest.lock */,
 				D3E88FC92D60A50400E44996 /* Sources */,
 				D3E88FCA2D60A50400E44996 /* Frameworks */,
 				D3E88FCB2D60A50400E44996 /* Resources */,
+				42819E0DB4D20BAC2F158878 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -111,8 +140,6 @@
 				D3E88FCF2D60A50400E44996 /* Todoist_clon */,
 			);
 			name = Todoist_clon;
-			packageProductDependencies = (
-			);
 			productName = Todoist_clon;
 			productReference = D3E88FCD2D60A50400E44996 /* Todoist_clon.app */;
 			productType = "com.apple.product-type.application";
@@ -134,8 +161,6 @@
 				D3E88FE02D60A50500E44996 /* Todoist_clonTests */,
 			);
 			name = Todoist_clonTests;
-			packageProductDependencies = (
-			);
 			productName = Todoist_clonTests;
 			productReference = D3E88FDD2D60A50500E44996 /* Todoist_clonTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -157,8 +182,6 @@
 				D3E88FEA2D60A50500E44996 /* Todoist_clonUITests */,
 			);
 			name = Todoist_clonUITests;
-			packageProductDependencies = (
-			);
 			productName = Todoist_clonUITests;
 			productReference = D3E88FE72D60A50500E44996 /* Todoist_clonUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -230,6 +253,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		42819E0DB4D20BAC2F158878 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Todoist_clon/Pods-Todoist_clon-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Todoist_clon/Pods-Todoist_clon-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Todoist_clon/Pods-Todoist_clon-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EAA93F29796E3FAED4FB80C4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Todoist_clon-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D3E88FC92D60A50400E44996 /* Sources */ = {
@@ -390,6 +455,7 @@
 		};
 		D3E88FF22D60A50500E44996 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 322F8603D9F9F33EA33B2F78 /* Pods-Todoist_clon.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -397,12 +463,15 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Todoist_clon/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Todoist-clon-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -418,6 +487,7 @@
 		};
 		D3E88FF32D60A50500E44996 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5FB315710E2D93E8444BB61E /* Pods-Todoist_clon.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -425,12 +495,15 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Todoist_clon/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Todoist-clon-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
