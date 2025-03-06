@@ -8,8 +8,11 @@
 import SwiftUI
 import FirebaseAuth
 struct ProfileView: View {
+    @ObservedObject var todoListViewModel: TodoListViewModel
     var user: User?
     @Environment(\.dismiss) var dismiss // 화면을 닫기 위한 dismiss 환경 변수
+    @State var pickView: String = "일간" //선택한 뷰
+    var views : [String] = ["일간", "주간"] //주간/일간 뷰 리스트
     var body: some View {
         NavigationView {
             VStack{
@@ -50,28 +53,26 @@ struct ProfileView: View {
                 }
                 .padding()
                 
-                
-                
-                
                 // ✅ 완료한 업무 수 표시
                 Text("완료한 업무: \(getCompletedTaskCount())개")
                     .font(.title2)
                     .padding()
-                
-                // ✅ 탭으로 일일/주간별 업무 진행 상황 관리
-                TabView {
-                    DailyProgressView()
-                        .tabItem {
-                            Image(systemName: "calendar")
-                            Text("일일 진행")
-                        }
-                    
-                    WeeklyProgressView()
-                        .tabItem {
-                            Image(systemName: "clock")
-                            Text("주간 진행")
-                        }
+                //일간/주간 뷰 선택
+                Picker("daily or weekly", selection: $pickView){
+                    ForEach(views, id: \.self){
+                        Text($0)
+                    }
                 }
+                .pickerStyle(.segmented)
+                .padding()
+                .cornerRadius(15)
+                
+                if pickView == "일간"{
+                    DailyProgressView()
+                } else{
+                    WeeklyProgressView()
+                }
+                Spacer()
             }
         }
     }
@@ -79,8 +80,9 @@ struct ProfileView: View {
     
     // ✅ 완료한 업무 개수 가져오기
     func getCompletedTaskCount() -> Int {
-        // CoreData에서 완료된 업무 개수 가져오는 코드 필요
-        return 0
+        // CoreData에서 완료된 업무 개수
+        let count: Int = todoListViewModel.completedItems.count
+        return count
     }
     
     //로그아웃 기능
@@ -94,6 +96,6 @@ struct ProfileView: View {
     }
 }
 
-#Preview {
-    ProfileView()
-}
+//#Preview {
+//    ProfileView()
+//}

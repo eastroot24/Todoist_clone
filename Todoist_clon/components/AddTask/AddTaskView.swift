@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct AddTaskView: View {
-    @Binding var showSheet: Bool
+    @Environment(\.dismiss) var dismiss
     @State var newTask: String = ""
     @State var newDate: Date = Date()
     var addTask: (String, Date) -> Void
@@ -23,7 +23,7 @@ struct AddTaskView: View {
                                    .environment(\.locale, Locale(identifier: "ko_KR"))
                     Button("저장") {
                         addTask(newTask, newDate)
-                        showSheet = false // 입력 후 창 닫기
+                        dismiss() // 입력 후 창 닫기
                         newTask = "" // 입력값 초기화
                     }
                     .padding()
@@ -35,7 +35,7 @@ struct AddTaskView: View {
             .scaledToFit()
             .navigationTitle("새로운 일정 추가")
             .navigationBarItems(trailing: Button("닫기") {
-                showSheet = false
+                dismiss()
             })
                 .foregroundStyle(Color.red)
                 .fontWeight(.bold)

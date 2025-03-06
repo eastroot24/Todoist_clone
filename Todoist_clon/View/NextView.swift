@@ -9,7 +9,6 @@ import SwiftUI
 
 struct NextView: View {
     @ObservedObject var todoListViewModel: TodoListViewModel
-    @Binding var showSheet: Bool
     @State private var selectedDate: Date = Date()
     var body: some View {
         VStack{
@@ -23,7 +22,7 @@ struct NextView: View {
             VStack{
                 Spacer()
                 //AddTaskButton - 일정 추가 버튼
-                AddTaskButton(todoListViewModel: todoListViewModel, showSheet: $showSheet)
+                AddTaskButton(todoListViewModel: todoListViewModel)
                     .padding(.vertical, 20)
             }
         )

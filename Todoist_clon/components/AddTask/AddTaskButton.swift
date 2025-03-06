@@ -9,18 +9,14 @@ import SwiftUI
 
 struct AddTaskButton: View {
     @ObservedObject var todoListViewModel: TodoListViewModel
-    
-    @Binding var showSheet: Bool
+    @State private var showSheet = false // ✅ Sheet 상태 관리
     var body: some View {
         HStack {
             //간격
             Spacer()
             // 오른쪽 업무 추가 버튼
             Button(action: {
-                if !showSheet {
-                    showSheet = true
-                }
-                
+                showSheet = true
             }) {
                 Image(systemName: "plus.circle")
                     .resizable()
@@ -30,7 +26,7 @@ struct AddTaskButton: View {
                 
             }
             .sheet(isPresented: $showSheet){
-                AddTaskView(showSheet: $showSheet, addTask: addTask)
+                AddTaskView(addTask: addTask)
             }
             .padding(.horizontal)
         }

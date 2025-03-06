@@ -1,6 +1,6 @@
 //
 //  AccountView.swift
-//  Todoist_clon
+//  Todoist_clone
 //
 //  Created by eastroot on 3/4/25.
 //
@@ -11,43 +11,55 @@ import FirebaseCore
 import GoogleSignIn
 
 struct AccountView: View {
+    @ObservedObject var todoListViewModel: TodoListViewModel
     @State private var isLoggedIn = false
     @State private var user: User? = nil // Firebase User 정보 저장
+    @Environment(\.dismiss) var dismiss // 🔙 화면 닫기s
     
     
     var body: some View {
-        NavigationView {
-            VStack {
-                if isLoggedIn {
-                    // ✅ 로그인된 상태 → 계정 정보 뷰
-                    ProfileView(user: user)
-                } else {
-                    // ❌ 로그인되지 않은 상태 → 구글 로그인 버튼 표시
-                    VStack {
-                        Text("로그인이 필요합니다.")
-                            .font(.title2)
-                            .padding()
-                        
-                        Button(action: {
-                            signInWithGoogle()
-                        }) {
-                            HStack {
-                                Image(systemName: "person.fill")
-                                Text("구글 계정으로 로그인")
-                            }
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
+        VStack {
+            if isLoggedIn {
+                // ✅ 로그인된 상태 → 계정 정보 뷰
+                ProfileView(todoListViewModel: todoListViewModel, user: user)
+            } else {
+                // ❌ 로그인되지 않은 상태 → 구글 로그인 버튼 표시
+                VStack {
+                    Text("로그인이 필요합니다.")
+                        .font(.title2)
+                        .padding()
+                    
+                    Button(action: {
+                        signInWithGoogle()
+                    }) {
+                        HStack {
+                            Image(systemName: "person.fill")
+                            Text("구글 계정으로 로그인")
                         }
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
                     }
                 }
             }
-            .onAppear {
-                checkLoginStatus()
-            }
-            .navigationTitle("내 계정")
+            Spacer()
         }
+        .onAppear {
+            checkLoginStatus()
+        }
+        .navigationTitle("내 계정")
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action: {
+            dismiss()
+        }){
+            HStack {
+                Image(systemName: "chevron.left")
+                Text("뒤로")
+            }
+        }
+        )
+        
     }
     
     // ✅ 로그인 상태 체크
@@ -110,5 +122,5 @@ struct AccountView: View {
 }
 
 #Preview {
-    AccountView()
+   // AccountView()
 }

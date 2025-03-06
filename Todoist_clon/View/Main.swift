@@ -8,17 +8,15 @@
 import SwiftUI
 
 struct Main: View {
+    //할일 목록 객체
     @ObservedObject var todoListViewModel: TodoListViewModel
-    @State private var showHomeSheet = false
-    @State private var showNextSheet = false
-    @State private var showSearchSheet = false
-    @State private var showManageSheet = false
+    
     var body: some View {
         VStack {
             FirstHeader()
             TabView {
                 //홈화면
-                HomeView(todoListViewModel: todoListViewModel, showSheet: $showHomeSheet)
+                HomeView(todoListViewModel: todoListViewModel)
                     .tabItem {
                         Image(systemName: "clock")
                             .resizable()
@@ -27,7 +25,7 @@ struct Main: View {
                         Text("오늘")
                     }
                 //다음화면
-                NextView(todoListViewModel: todoListViewModel, showSheet: $showNextSheet)
+                NextView(todoListViewModel: todoListViewModel)
                     .tabItem {
                         Image(systemName: "calendar")
                             .resizable()
@@ -36,7 +34,8 @@ struct Main: View {
                         Text("다음")
                             .fontWeight(.bold)
                     }
-                SearchView(todoListViewModel: todoListViewModel, showSheet: $showSearchSheet)
+                //검색화면
+                SearchView(todoListViewModel: todoListViewModel)
                     .tabItem {
                         Image(systemName: "magnifyingglass")
                             .resizable()
@@ -45,7 +44,8 @@ struct Main: View {
                         Text("검색")
                             .fontWeight(.bold)
                     }
-                ManageView(todoListViewModel: todoListViewModel, showSheet: $showManageSheet)
+                //관리화면
+                ManageView(todoListViewModel: todoListViewModel)
                     .tabItem {
                         Image(systemName: "list.bullet")
                             .resizable()
@@ -61,6 +61,12 @@ struct Main: View {
     }
 }
 
-#Preview {
-    //Main(todoListViewModel: .init(context: .init()))
+//추가 창의 상태 여부를 전역적으로 관리하기 위한 
+class ShowSheetManager: ObservableObject {
+    @Published var showSheet = false
 }
+
+
+//#Preview {
+//    Main(todoListViewModel: .init(context: .init()))
+//}

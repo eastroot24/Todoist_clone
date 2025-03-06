@@ -10,7 +10,6 @@ import CoreData
 
 struct HomeView: View {
     @ObservedObject var todoListViewModel: TodoListViewModel
-    @Binding var showSheet: Bool
     let today = Date()
     
     var body: some View {
@@ -23,7 +22,7 @@ struct HomeView: View {
             VStack{
                 Spacer()
                 //AddTaskButton - 일정 추가 버튼
-                AddTaskButton(todoListViewModel: todoListViewModel, showSheet: $showSheet)
+                AddTaskButton(todoListViewModel: todoListViewModel)
                     .padding(.vertical, 20)
             }
         )
