@@ -1,6 +1,0 @@
-framework module Pods_Todoist_clon {
-  umbrella header "Pods-Todoist_clon-umbrella.h"
-
-  export *
-  module * { export * }
-}
