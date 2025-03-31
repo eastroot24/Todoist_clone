@@ -13,6 +13,7 @@ import GoogleSignIn
 
 struct ManageView: View {
     @ObservedObject var todoListViewModel: TodoListViewModel
+    @EnvironmentObject var userPreference: UserPreference
     var body: some View {
         NavigationStack {
             VStack {
@@ -59,7 +60,24 @@ struct ManageView: View {
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
                 }
-                .padding()
+                .padding(.horizontal)
+                
+                NavigationLink(destination: TimeSettingView(userPreference: userPreference)){
+                    HStack {
+                        Image(systemName: "clock") // 📦 관리함 아이콘
+                            .foregroundStyle(Color.red)
+                        Text("시간 설정")
+                            .font(.headline)
+                            .foregroundStyle(Color.red)
+                        Spacer()
+                        Image(systemName: "chevron.right") // ➡️ 이동 아이콘
+                            .foregroundStyle(Color.red)
+                    }
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(10)
+                }
+                .padding(.horizontal)
                 Spacer()
             }
         }

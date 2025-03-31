@@ -9,6 +9,8 @@ import FirebaseFirestore
 import FirebaseAuth
 
 class UserService: ObservableObject {
+    static var shared = UserService()
+    
     let db = Firestore.firestore()
     
     @Published var currentUser: Consumer?
@@ -67,7 +69,6 @@ class UserService: ObservableObject {
                     let joinDate = joinDateTimestamp.dateValue()
                     let elapsedDays = Calendar.current.dateComponents([.day], from: joinDate, to: Date()).day ?? 0
                     let rank = self.calculateRank(taskCount: taskCount, days: elapsedDays)
-                    
                     DispatchQueue.main.async {
                         self.currentUser = Consumer(id: user.uid, name: name, email: email, joinDate: joinDate, taskCount: taskCount, rank: rank)
                         print("✅ 유저 정보 로드 성공: \(user)")

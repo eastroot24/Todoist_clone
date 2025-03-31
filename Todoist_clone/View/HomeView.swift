@@ -29,7 +29,7 @@ struct HomeView: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
             } else {
-                Text("로딩 중...")
+                Text("로그인이 필요합니다.")
             }
             todoListView()
             Spacer()
@@ -93,7 +93,6 @@ struct HomeView: View {
                                 todoListViewModel.todoItemRow(for: task)
                             }
                         }
-                        
                     }
                     //오늘 업무
                     let todayItems = todoListViewModel.todoItems.compactMap { item -> TodoItem? in

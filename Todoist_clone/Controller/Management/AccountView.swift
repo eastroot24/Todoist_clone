@@ -112,7 +112,7 @@ struct AccountView: View {
                     return
                 }
                 // Firebase에 유저 정보 저장
-                            saveUserInfoToFirestore(user: user)
+                saveUserInfoToFirestore(user: user)
                 // ✅ 메인 스레드에서 UI 업데이트
                 DispatchQueue.main.async {
                     self.user = Auth.auth().currentUser

@@ -43,6 +43,8 @@ struct Todoist_clonApp: App {
     let persistenceController = PersistenceController.shared
     @StateObject var todoListViewModel = TodoListViewModel(context: PersistenceController.shared.container.viewContext)
     @StateObject var userService = UserService()
+    @StateObject var userPreference = UserPreference()
+    @StateObject var diaryViewModel = DiaryViewModel()
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
@@ -51,6 +53,8 @@ struct Todoist_clonApp: App {
             Main(todoListViewModel: todoListViewModel)
                 .environmentObject(userService)
                 .environmentObject(todoListViewModel)
+                .environmentObject(userPreference)
+                .environmentObject(diaryViewModel)
         }
     }
 }
