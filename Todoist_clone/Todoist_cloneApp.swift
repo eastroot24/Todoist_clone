@@ -14,7 +14,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
-        
+        print("✅ Firebase 초기화 완료")
         return true
     }
     // 로그인 및 사용자 등록에만은 필요 없는 코드

@@ -71,7 +71,7 @@ struct Main: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 30, height: 30)
-                        Text("목록")
+                        Text("관리")
                             .fontWeight(.bold)
                     }
                     .tag(4)

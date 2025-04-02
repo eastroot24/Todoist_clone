@@ -6,6 +6,7 @@ target 'Todoist_clone' do
   use_frameworks!
 
   # Pods for Todoist_clon
+    pod 'Firebase/Core'
     pod 'Firebase/Auth'
     pod 'FirebaseAppCheckInterop'
     pod 'FirebaseAuth'

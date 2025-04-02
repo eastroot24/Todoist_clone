@@ -1207,8 +1207,29 @@ PODS:
   - Firebase/Auth (11.9.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 11.9.0)
+  - Firebase/Core (11.9.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (~> 11.9.0)
   - Firebase/CoreOnly (11.9.0):
     - FirebaseCore (~> 11.9.0)
+  - FirebaseAnalytics (11.9.0):
+    - FirebaseAnalytics/AdIdSupport (= 11.9.0)
+    - FirebaseCore (~> 11.9.0)
+    - FirebaseInstallations (~> 11.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
+    - GoogleUtilities/MethodSwizzler (~> 8.0)
+    - GoogleUtilities/Network (~> 8.0)
+    - "GoogleUtilities/NSData+zlib (~> 8.0)"
+    - nanopb (~> 3.30910.0)
+  - FirebaseAnalytics/AdIdSupport (11.9.0):
+    - FirebaseCore (~> 11.9.0)
+    - FirebaseInstallations (~> 11.0)
+    - GoogleAppMeasurement (= 11.9.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
+    - GoogleUtilities/MethodSwizzler (~> 8.0)
+    - GoogleUtilities/Network (~> 8.0)
+    - "GoogleUtilities/NSData+zlib (~> 8.0)"
+    - nanopb (~> 3.30910.0)
   - FirebaseAppCheckInterop (11.9.0)
   - FirebaseAuth (11.9.0):
     - FirebaseAppCheckInterop (~> 11.0)
@@ -1248,7 +1269,32 @@ PODS:
     - gRPC-Core (~> 1.69.0)
     - leveldb-library (~> 1.22)
     - nanopb (~> 3.30910.0)
+  - FirebaseInstallations (11.9.0):
+    - FirebaseCore (~> 11.9.0)
+    - GoogleUtilities/Environment (~> 8.0)
+    - GoogleUtilities/UserDefaults (~> 8.0)
+    - PromisesObjC (~> 2.4)
   - FirebaseSharedSwift (11.9.0)
+  - GoogleAppMeasurement (11.9.0):
+    - GoogleAppMeasurement/AdIdSupport (= 11.9.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
+    - GoogleUtilities/MethodSwizzler (~> 8.0)
+    - GoogleUtilities/Network (~> 8.0)
+    - "GoogleUtilities/NSData+zlib (~> 8.0)"
+    - nanopb (~> 3.30910.0)
+  - GoogleAppMeasurement/AdIdSupport (11.9.0):
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 11.9.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
+    - GoogleUtilities/MethodSwizzler (~> 8.0)
+    - GoogleUtilities/Network (~> 8.0)
+    - "GoogleUtilities/NSData+zlib (~> 8.0)"
+    - nanopb (~> 3.30910.0)
+  - GoogleAppMeasurement/WithoutAdIdSupport (11.9.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
+    - GoogleUtilities/MethodSwizzler (~> 8.0)
+    - GoogleUtilities/Network (~> 8.0)
+    - "GoogleUtilities/NSData+zlib (~> 8.0)"
+    - nanopb (~> 3.30910.0)
   - GoogleSignIn (8.0.0):
     - AppAuth (< 2.0, >= 1.7.3)
     - AppCheckCore (~> 11.0)
@@ -1265,6 +1311,9 @@ PODS:
     - GoogleUtilities/Privacy
   - GoogleUtilities/Logger (8.0.2):
     - GoogleUtilities/Environment
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/MethodSwizzler (8.0.2):
+    - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
   - GoogleUtilities/Network (8.0.2):
     - GoogleUtilities/Logger
@@ -1387,6 +1436,7 @@ PODS:
 
 DEPENDENCIES:
   - Firebase/Auth
+  - Firebase/Core
   - FirebaseAppCheckInterop
   - FirebaseAuth
   - FirebaseAuthInterop
@@ -1400,6 +1450,7 @@ SPEC REPOS:
     - AppCheckCore
     - BoringSSL-GRPC
     - Firebase
+    - FirebaseAnalytics
     - FirebaseAppCheckInterop
     - FirebaseAuth
     - FirebaseAuthInterop
@@ -1408,7 +1459,9 @@ SPEC REPOS:
     - FirebaseCoreInternal
     - FirebaseFirestore
     - FirebaseFirestoreInternal
+    - FirebaseInstallations
     - FirebaseSharedSwift
+    - GoogleAppMeasurement
     - GoogleSignIn
     - GoogleSignInSwiftSupport
     - GoogleUtilities
@@ -1427,6 +1480,7 @@ SPEC CHECKSUMS:
   AppCheckCore: cc8fd0a3a230ddd401f326489c99990b013f0c4f
   BoringSSL-GRPC: dded2a44897e45f28f08ae87a55ee4bcd19bc508
   Firebase: 819b973f669bc894c85e181f814171e9d4440b29
+  FirebaseAnalytics: 68aa43d0556fb7ea3957570f65417813851fcf95
   FirebaseAppCheckInterop: 9226f7217b43e99dfa0bc9f674ad8108cef89feb
   FirebaseAuth: 8eebb43f35cd2c1bb1981e3cef27c45617b85316
   FirebaseAuthInterop: 2a26ee1bea6d47df8048683cfa071e7da657798f
@@ -1435,7 +1489,9 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: 154779013b85b4b290fdba38414df475f42e3096
   FirebaseFirestore: b6d8e413b6e3ebc5e2d0beac2371c6aefb740ef3
   FirebaseFirestoreInternal: 259eb0771fdf24d03d86d8f9692dda6df75cac28
+  FirebaseInstallations: c76d4931a485fc0cc2dc1d62d3ed0369846ea4b8
   FirebaseSharedSwift: 574e6a5602afe4397a55c8d4f767382d620285de
+  GoogleAppMeasurement: 7225e5d0cdd2687b5cefaa0d1a052fe51c448903
   GoogleSignIn: ce8c89bb9b37fb624b92e7514cc67335d1e277e4
   GoogleSignInSwiftSupport: de6a0f0c2f0f7420d77a58275fbef7c7f4fcf3c2
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
@@ -1448,6 +1504,6 @@ SPEC CHECKSUMS:
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   RecaptchaInterop: 11e0b637842dfb48308d242afc3f448062325aba
 
-PODFILE CHECKSUM: f236f01e2d1c7634dec0f16f6a6cb3ae0a963256
+PODFILE CHECKSUM: bfaeba03b6f9869b9664089e0d1853ef67ba1101
 
 COCOAPODS: 1.16.2
