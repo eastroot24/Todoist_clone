@@ -1,0 +1,5 @@
+ extern const unsigned char Pods_Todoist_cloneVersionString[];
+ extern const double Pods_Todoist_cloneVersionNumber;
+
+ const unsigned char Pods_Todoist_cloneVersionString[] __attribute__ ((used)) = "@(#)PROGRAM:Pods_Todoist_clone  PROJECT:Pods-1" "\n";
+ const double Pods_Todoist_cloneVersionNumber __attribute__ ((used)) = (double)1.;

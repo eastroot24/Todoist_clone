@@ -55,7 +55,7 @@ class UserService: ObservableObject {
                 return
             }
             
-            guard let data = document?.data() else {
+            guard let _ = document?.data() else {
                 print("🚨 데이터 없음!")
                 return
             }

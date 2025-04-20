@@ -5,7 +5,7 @@
 //
 
 import SwiftUI
-
+import FirebaseAuth
 struct Main: View {
     @EnvironmentObject var userService: UserService
     // 할 일 목록 객체
@@ -43,13 +43,14 @@ struct Main: View {
                     }
                     .tag(1)
                 
-                NextView(todoListViewModel: todoListViewModel)
+                //NextView(todoListViewModel: todoListViewModel)
+                CalendarView()
                     .tabItem {
                         Image(systemName: "calendar")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 30, height: 30)
-                        Text("다음")
+                        Text("주간")
                             .fontWeight(.bold)
                     }
                     .tag(2)

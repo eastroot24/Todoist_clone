@@ -7,26 +7,26 @@
 import UIKit
 
 extension UIApplication {
-    // ✅ 현재 화면에서 최상위 UIViewController 가져오기
-    func topViewController(controller: UIViewController? = nil) -> UIViewController? {
-        let controller = controller ?? connectedScenes
-            .compactMap { $0 as? UIWindowScene }
-            .first?.windows
-            .first { $0.isKeyWindow }?.rootViewController
-        
-        if let navigationController = controller as? UINavigationController {
-            return topViewController(controller: navigationController.visibleViewController)
+    func topViewController(base: UIViewController? = UIApplication.shared.connectedScenes
+        .compactMap { ($0 as? UIWindowScene)?.keyWindow }
+        .first?.rootViewController) -> UIViewController? {
+
+        if let nav = base as? UINavigationController {
+            return topViewController(base: nav.visibleViewController)
         }
-        
-        if let tabBarController = controller as? UITabBarController {
-            return topViewController(controller: tabBarController.selectedViewController)
+
+        if let tab = base as? UITabBarController {
+            if let selected = tab.selectedViewController {
+                return topViewController(base: selected)
+            }
         }
-        
-        if let presentedController = controller?.presentedViewController {
-            return topViewController(controller: presentedController)
+
+        if let presented = base?.presentedViewController {
+            return topViewController(base: presented)
         }
-        
-        return controller
+
+        return base
     }
 }
+
 

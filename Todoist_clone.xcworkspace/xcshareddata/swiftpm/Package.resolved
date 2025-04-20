@@ -1,0 +1,15 @@
+{
+  "originHash" : "f5c782c1f0f47a732f2c55dfdaaebc9e744a33d575b350e841d937c4137d4b47",
+  "pins" : [
+    {
+      "identity" : "swiftuicalendarkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/haskins-io/SwiftUiCalendarKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "fa72bfd97fb4589632fbeb1ca83e5c1241fc3d67"
+      }
+    }
+  ],
+  "version" : 3
+}

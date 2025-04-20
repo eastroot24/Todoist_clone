@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A0CE63A0207C6EED7945BF4E /* Pods_Todoist_clone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7376E0D424661C64233E4FB0 /* Pods_Todoist_clone.framework */; };
+		AD8330D8A967C25CC5BD78F4 /* Pods_Todoist_clone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88EE68BA663B0CD3A782CCA9 /* Pods_Todoist_clone.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,12 +28,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		010922717DAAB0DBECD9FF8F /* Pods-Todoist_clone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Todoist_clone.debug.xcconfig"; path = "Target Support Files/Pods-Todoist_clone/Pods-Todoist_clone.debug.xcconfig"; sourceTree = "<group>"; };
-		7376E0D424661C64233E4FB0 /* Pods_Todoist_clone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Todoist_clone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		433F359290AC2F14DA0667F7 /* Pods-Todoist_clone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Todoist_clone.debug.xcconfig"; path = "Target Support Files/Pods-Todoist_clone/Pods-Todoist_clone.debug.xcconfig"; sourceTree = "<group>"; };
+		88EE68BA663B0CD3A782CCA9 /* Pods_Todoist_clone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Todoist_clone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3E88FCD2D60A50400E44996 /* Todoist_clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todoist_clone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3E88FDD2D60A50500E44996 /* Todoist_cloneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Todoist_cloneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3E88FE72D60A50500E44996 /* Todoist_cloneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Todoist_cloneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E945BECD84111856A65B1D05 /* Pods-Todoist_clone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Todoist_clone.release.xcconfig"; path = "Target Support Files/Pods-Todoist_clone/Pods-Todoist_clone.release.xcconfig"; sourceTree = "<group>"; };
+		D9EDFB37DD2AC8FBA48305BC /* Pods-Todoist_clone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Todoist_clone.release.xcconfig"; path = "Target Support Files/Pods-Todoist_clone/Pods-Todoist_clone.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -59,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0CE63A0207C6EED7945BF4E /* Pods_Todoist_clone.framework in Frameworks */,
+				AD8330D8A967C25CC5BD78F4 /* Pods_Todoist_clone.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,11 +80,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		29D4465C3EA5196B3E3AA554 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				88EE68BA663B0CD3A782CCA9 /* Pods_Todoist_clone.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A2ACB45BDD05ECB7958EF6D3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				010922717DAAB0DBECD9FF8F /* Pods-Todoist_clone.debug.xcconfig */,
-				E945BECD84111856A65B1D05 /* Pods-Todoist_clone.release.xcconfig */,
+				433F359290AC2F14DA0667F7 /* Pods-Todoist_clone.debug.xcconfig */,
+				D9EDFB37DD2AC8FBA48305BC /* Pods-Todoist_clone.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -97,7 +105,7 @@
 				D3E88FEA2D60A50500E44996 /* Todoist_clonUITests */,
 				D3E88FCE2D60A50400E44996 /* Products */,
 				A2ACB45BDD05ECB7958EF6D3 /* Pods */,
-				E7B1782BC528444AA89A6C25 /* Frameworks */,
+				29D4465C3EA5196B3E3AA554 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -111,14 +119,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E7B1782BC528444AA89A6C25 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				7376E0D424661C64233E4FB0 /* Pods_Todoist_clone.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -126,11 +126,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D3E88FF12D60A50500E44996 /* Build configuration list for PBXNativeTarget "Todoist_clone" */;
 			buildPhases = (
-				1E649AA673E3D9BFDC6B35B0 /* [CP] Check Pods Manifest.lock */,
+				944D43C718DCD2BA162F0ADD /* [CP] Check Pods Manifest.lock */,
 				D3E88FC92D60A50400E44996 /* Sources */,
 				D3E88FCA2D60A50400E44996 /* Frameworks */,
 				D3E88FCB2D60A50400E44996 /* Resources */,
-				833D8CE0CAC7201391B31CFC /* [CP] Embed Pods Frameworks */,
+				F92062BF746A70040C9EA994 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -194,7 +194,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					D3E88FCC2D60A50400E44996 = {
 						CreatedOnToolsVersion = 16.2;
@@ -218,6 +218,9 @@
 			);
 			mainGroup = D3E88FC42D60A50400E44996;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D390FEC72DA7D917002F1FC8 /* XCRemoteSwiftPackageReference "SwiftUiCalendarKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D3E88FCE2D60A50400E44996 /* Products */;
 			projectDirPath = "";
@@ -255,7 +258,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1E649AA673E3D9BFDC6B35B0 /* [CP] Check Pods Manifest.lock */ = {
+		944D43C718DCD2BA162F0ADD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -277,7 +280,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		833D8CE0CAC7201391B31CFC /* [CP] Embed Pods Frameworks */ = {
+		F92062BF746A70040C9EA994 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -285,9 +288,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Todoist_clone/Pods-Todoist_clone-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Todoist_clone/Pods-Todoist_clone-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -386,7 +393,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -443,7 +450,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -455,7 +462,7 @@
 		};
 		D3E88FF22D60A50500E44996 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 010922717DAAB0DBECD9FF8F /* Pods-Todoist_clone.debug.xcconfig */;
+			baseConfigurationReference = 433F359290AC2F14DA0667F7 /* Pods-Todoist_clone.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -472,7 +479,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -488,7 +495,7 @@
 		};
 		D3E88FF32D60A50500E44996 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E945BECD84111856A65B1D05 /* Pods-Todoist_clone.release.xcconfig */;
+			baseConfigurationReference = D9EDFB37DD2AC8FBA48305BC /* Pods-Todoist_clone.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -505,7 +512,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -526,7 +533,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.eastroot.Todoist-clonTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -544,7 +551,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.eastroot.Todoist-clonTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -627,6 +634,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D390FEC72DA7D917002F1FC8 /* XCRemoteSwiftPackageReference "SwiftUiCalendarKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/haskins-io/SwiftUiCalendarKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = D3E88FC52D60A50400E44996 /* Project object */;
 }

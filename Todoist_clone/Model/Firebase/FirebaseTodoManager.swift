@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseAuth
-import Firebase
+import FirebaseCore
 
 class FirebaseTodoManager {
     static let shared = FirebaseTodoManager() // Singleton 인스턴스

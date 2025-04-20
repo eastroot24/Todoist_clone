@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct DiaryView: View {
+    @EnvironmentObject var todoListViewModel: TodoListViewModel
     @ObservedObject var diaryViewModel = DiaryViewModel()
-    @State private var mood: String = "😀"
+    @State private var mood: String = "😄"
     @State private var entry: String = ""
     @State private var isSelectingMood = false // 기분 선택 토글
     @State private var isEditing = false // ✅ 수정 여부를 감지하는 변수 추가
@@ -24,7 +25,6 @@ struct DiaryView: View {
                         .fontWeight(.bold)
                     
                     Spacer()
-                    
                     // 기분 선택 버튼
                     Button(action: { isSelectingMood.toggle() }) {
                         HStack {
@@ -41,13 +41,12 @@ struct DiaryView: View {
                 }
                 .padding(.horizontal)
                 
-                // 기분 선택 메뉴 (Dropdown 방식)
                 if isSelectingMood {
                     HStack {
                         ForEach(["😀", "😐", "😢", "😡", "🥰"], id: \.self) { emoji in
                             Button(action: {
                                 mood = emoji
-                                diaryViewModel.saveDiary(mood: mood, entry: entry)
+                                diaryViewModel.saveDiary(for: savingGetTodayDate(), mood: mood, entry: entry)
                                 isSelectingMood = false // 메뉴 닫기
                             }) {
                                 Text(emoji)
@@ -83,8 +82,8 @@ struct DiaryView: View {
                     .padding(.horizontal)
                 }
                 .sheet(isPresented: $isEditing) {
-                    DiaryEditorView(entry: $entry, onSave: {
-                        diaryViewModel.saveDiary(mood: mood, entry: entry) // ✅ 저장 기능 실행
+                    DiaryEditorView(mood: $mood, entry: $entry, onSave: {
+                        diaryViewModel.saveDiary(for: savingGetTodayDate(), mood: mood, entry: entry) // ✅ 저장 기능 실행
                     })
                 }
 
@@ -92,11 +91,19 @@ struct DiaryView: View {
             }
             .padding(.top)
             .onAppear {
-                diaryViewModel.fetchDiary { savedEntry, savedMood in
+                diaryViewModel.fetchDiary(for: savingGetTodayDate()) { savedEntry, savedMood in
                     self.entry = savedEntry
                     self.mood = savedMood
                 }
             }
+            .overlay(
+                VStack{
+                    Spacer()
+                    //AddTaskButton - 일정 추가 버튼
+                    AddTaskButton(todoListViewModel: todoListViewModel)
+                        .padding(.vertical, 20)
+                }
+            )
         }
     }
     
@@ -105,6 +112,13 @@ struct DiaryView: View {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "MM월 dd일 EEEE"
+        return formatter.string(from: Date())
+    }
+    // 저장용 오늘 날짜 가져오기
+    func savingGetTodayDate() -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "yyyy-MM-dd"
         return formatter.string(from: Date())
     }
 }

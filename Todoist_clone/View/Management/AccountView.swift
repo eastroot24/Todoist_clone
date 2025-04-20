@@ -29,7 +29,6 @@ struct AccountView: View {
                     Text("로그인이 필요합니다.")
                         .font(.title2)
                         .padding()
-                    
                     Button(action: {
                         signInWithGoogle()
                     }) {
@@ -47,7 +46,7 @@ struct AccountView: View {
             Spacer()
         }
         .onAppear {
-            checkLoginStatus()
+           checkLoginStatus()
         }
         .navigationTitle("내 계정")
         .navigationBarBackButtonHidden(true)
@@ -75,78 +74,87 @@ struct AccountView: View {
     
     // ✅ 구글 로그인 기능
     func signInWithGoogle() {
-        // Firebase Google 로그인 로직 (Google Sign-In SDK)
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
-        
-        // Create Google Sign In configuration object.
+
         let config = GIDConfiguration(clientID: clientID)
         GIDSignIn.sharedInstance.configuration = config
-        
-        // ✅ 현재 최상위 ViewController 가져오기
+
         guard let presentingVC = UIApplication.shared.topViewController() else {
+            print("🔍 현재 최상위 뷰 컨트롤러: \(String(describing: UIApplication.shared.topViewController()))")
             print("❌ 현재 화면을 찾을 수 없음")
             return
         }
-        
-        // Start the sign in flow!
+
         GIDSignIn.sharedInstance.signIn(withPresenting: presentingVC) { result, error in
-            
             if let error = error {
                 print("❌ Google 로그인 실패: \(error.localizedDescription)")
                 return
             }
-            
+
             guard let user = result?.user,
-                  let idToken = user.idToken?.tokenString
-            else {
+                  let idToken = user.idToken?.tokenString else {
                 print("❌ Google 사용자 정보를 가져올 수 없음")
                 return
             }
-            
-            let credential = GoogleAuthProvider.credential(withIDToken: idToken,
-                                                           accessToken: user.accessToken.tokenString)
-            // ✅ Firebase Auth에 로그인
+
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: user.accessToken.tokenString)
+
             Auth.auth().signIn(with: credential) { authResult, error in
                 if let error = error {
                     print("❌ Firebase 로그인 실패: \(error.localizedDescription)")
                     return
                 }
-                // Firebase에 유저 정보 저장
-                saveUserInfoToFirestore(user: user)
-                // ✅ 메인 스레드에서 UI 업데이트
-                DispatchQueue.main.async {
-                    self.user = Auth.auth().currentUser
-                    self.isLoggedIn = true
+
+                // ✅ Firestore에 사용자 정보 저장
+                saveUserInfoToFirestore(user: user) { success in
+                    DispatchQueue.main.async {
+                        self.user = Auth.auth().currentUser
+                        self.isLoggedIn = true
+                        print("✅ 로그인 성공 후 UI 업데이트 완료!")
+                    }
                 }
             }
         }
     }
-    // Firestore에 유저 정보 저장
-    func saveUserInfoToFirestore(user: GIDGoogleUser) {
-        guard let firebaseUser = Auth.auth().currentUser else { return }
-        
+    func saveUserInfoToFirestore(user: GIDGoogleUser, completion: @escaping (Bool) -> Void) {
+        guard let firebaseUser = Auth.auth().currentUser else {
+            completion(false)
+            return
+        }
+
         let db = Firestore.firestore()
         let userRef = db.collection("users").document(firebaseUser.uid)
-        
-        // Firestore에 저장할 유저 정보
-        let userData: [String: Any] = [
-            "name": user.profile?.name ?? "이름 없음",
-            "email": user.profile?.email ?? "이메일 없음",
-            "photoURL": user.profile?.imageURL(withDimension: 200)?.absoluteString ?? "사진 없음",
-            "joinDate": Date(),
-            "taskCount": 0 // 기본값으로 설정
-        ]
-        
-        userRef.setData(userData) { error in
+
+        userRef.getDocument { document, error in
             if let error = error {
-                print("❌ Firestore에 유저 정보 저장 실패: \(error.localizedDescription)")
-            } else {
-                print("✅ Firestore에 유저 정보 저장 성공")
+                print("❌ Firestore 유저 정보 조회 실패: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+
+            if let document = document, document.exists, document.data()?["joinDate"] != nil {
+                print("✅ 기존 유저, joinDate 업데이트 안 함")
+                completion(true)
+                return
+            }
+
+            let userData: [String: Any] = [
+                "name": user.profile?.name ?? "이름 없음",
+                "email": user.profile?.email ?? "이메일 없음",
+                "photoURL": user.profile?.imageURL(withDimension: 200)?.absoluteString ?? "사진 없음",
+                "joinDate": FieldValue.serverTimestamp(),
+                "taskCount": 0
+            ]
+
+            userRef.setData(userData, merge: true) { error in
+                if let error = error {
+                    print("❌ Firestore에 유저 정보 저장 실패: \(error.localizedDescription)")
+                    completion(false)
+                } else {
+                    print("✅ Firestore에 유저 정보 저장 성공")
+                    completion(true)
+                }
             }
         }
     }
-}
-
-#Preview {
-   // AccountView()
 }

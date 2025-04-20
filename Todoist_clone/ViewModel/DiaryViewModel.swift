@@ -14,11 +14,11 @@ class DiaryViewModel: ObservableObject {
     
     private var db = Firestore.firestore()
     
-    func fetchDiary(completion: @escaping (String, String) -> Void) {
+    func fetchDiary(for date: String, completion: @escaping (String, String) -> Void) {
             guard let userId = Auth.auth().currentUser?.uid else { return }
-            let today = getFormattedDate()
+            // let today = getFormattedDate()
             
-        db.collection("users").document(userId).collection("diaries").document(today).getDocument { snapshot, error in
+        db.collection("users").document(userId).collection("diaries").document(date).getDocument { snapshot, error in
                 if let data = snapshot?.data(), error == nil {
                     let savedMood = data["mood"] as? String ?? "😀"
                     let savedEntry = data["content"] as? String ?? ""
@@ -29,7 +29,7 @@ class DiaryViewModel: ObservableObject {
             }
         }
     
-    func saveDiary(mood: String, entry: String) {
+    func saveDiary(for date: String, mood: String, entry: String) {
            guard let userId = Auth.auth().currentUser?.uid else { return }
            let today = getFormattedDate()
            
@@ -39,7 +39,7 @@ class DiaryViewModel: ObservableObject {
                "content": entry
            ]
            
-        db.collection("users").document(userId).collection("diaries").document(today).setData(diaryData) { error in
+        db.collection("users").document(userId).collection("diaries").document(date).setData(diaryData) { error in
                if let error = error {
                    print("Error saving diary: \(error.localizedDescription)")
                } else {

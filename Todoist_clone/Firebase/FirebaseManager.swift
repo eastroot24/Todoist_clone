@@ -4,7 +4,7 @@
 //
 //  Created by eastroot on 3/27/25.
 //
-import Firebase
+import FirebaseCore
 
 class FirebaseManager {
     static let shared = FirebaseManager()
