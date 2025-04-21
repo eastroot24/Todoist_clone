@@ -12,6 +12,8 @@ struct ProfileView: View {
     @Environment(\.dismiss) var dismiss // 화면을 닫기 위한 dismiss 환경 변수
     @State var pickView: String = "일간" //선택한 뷰
     var views : [String] = ["일간", "주간"] //주간/일간 뷰 리스트
+    @EnvironmentObject var userService: UserService
+
     var body: some View {
         NavigationView {
             VStack{
@@ -52,10 +54,42 @@ struct ProfileView: View {
                 }
                 .padding()
                 
-                // ✅ 완료한 업무 수 표시
-                Text("완료한 업무: \(getCompletedTaskCount())개")
-                    .font(.title2)
-                    .padding()
+                //랭크 표시
+                if let consumer = userService.currentUser {
+                    VStack(alignment: .leading) {
+                        Text("랭크: \(consumer.rank)")
+                            .font(.title3.bold())
+                        
+                        let completedCount = consumer.taskCount
+                        let progress = todoListViewModel.rankProgress(currentRank: consumer.rank, currentCount: completedCount)
+                        let info = todoListViewModel.rankProgressInfo(currentRank: consumer.rank, currentCount: completedCount)
+
+                        VStack(alignment: .leading) {
+                            ProgressView(value: progress)
+                                .tint(.blue)
+                                .frame(height: 10)
+                            
+                            HStack {
+                                Spacer()
+                                if let nextRank = info.nextRank, let remaining = info.remaining, nextRank != "최고 랭크" {
+                                    Text("→ \(nextRank)까지 \(remaining)개 남음")
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                } else {
+                                    Text("최고 랭크 달성!")
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                        }
+                        
+                        Text("완료한 업무: \(consumer.taskCount)개")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                            .padding(.bottom, 5)
+                    }
+                    .padding(.horizontal)
+                }
                 //일간/주간 뷰 선택
                 Picker("daily or weekly", selection: $pickView){
                     ForEach(views, id: \.self){
@@ -73,15 +107,9 @@ struct ProfileView: View {
                 }
                 Spacer()
             }
+        }.onAppear {
+            userService.fetchUserInfo()
         }
-    }
-    
-    
-    // ✅ 완료한 업무 개수 가져오기
-    func getCompletedTaskCount() -> Int {
-        // CoreData에서 완료된 업무 개수
-        let count: Int = todoListViewModel.completedItems.count
-        return count
     }
     
     //로그아웃 기능

@@ -109,7 +109,7 @@ class FirebaseTodoManager {
         }
     }
 
-    
+
     // ✅ 날짜별 Todo 삭제
     func deleteTodoFromFirebase(todo: TodoItem) {
         guard let userId = userId, let todoId = todo.id?.uuidString, let todoDate = todo.date else { return }

@@ -25,7 +25,3 @@ struct OptionsView: View {
             })
     }
 }
-
-#Preview {
-    OptionsView()
-}
