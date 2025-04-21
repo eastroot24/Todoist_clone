@@ -96,9 +96,13 @@ class UserService: ObservableObject {
         }
     }
     
+
+    
     // ✅ 등급 계산 로직
     private func calculateRank(taskCount: Int, days: Int) -> String {
         if days >= 365 { return "VIP" } // 1년 이상 이용자
+        if taskCount > 1000 { return "Diamond" }
+        if taskCount > 500 {return "Emerald"}
         if taskCount > 100 { return "Platinum" }
         if taskCount > 50 { return "Gold" }
         if taskCount > 10 { return "Silver" }

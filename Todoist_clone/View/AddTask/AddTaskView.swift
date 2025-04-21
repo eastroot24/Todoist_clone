@@ -24,7 +24,7 @@ struct AddTaskView: View {
                                    .datePickerStyle(.wheel) // 휠 스타일 적용
                                    .environment(\.locale, Locale(identifier: "ko_KR"))
                     Button("저장") {
-                        userService.updateTaskCount(todoListViewModel.todoItems.count)
+                        //userService.updateTaskCount(todoListViewModel.todoItems.count)
                         addTask(newTask, newDate)
                         dismiss() // 입력 후 창 닫기
                         newTask = "" // 입력값 초기화

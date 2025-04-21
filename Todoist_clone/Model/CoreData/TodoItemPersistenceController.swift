@@ -19,7 +19,10 @@ struct PersistenceController {
             print("✅ FirebaseTodoManager 초기화됨")
             return FirebaseTodoManager.shared
         }()
-    
+    lazy var userService: UserService = {
+        print("✅ UserService 초기화됨")
+        return UserService.shared
+    }()
     let container: NSPersistentContainer
     var viewContext: NSManagedObjectContext { container.viewContext }
     
@@ -52,13 +55,16 @@ struct PersistenceController {
     }
     
     // ✅ 완료된 업무 목록 불러오기
-    func completedFetchRequest() -> [TodoItem] {
+    mutating func completedFetchRequest() -> [TodoItem] {
         let request: NSFetchRequest<TodoItem> = TodoItem.fetchRequest()
         request.predicate = NSPredicate(format: "isCompleted == true")
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         
         do {
-            return try viewContext.fetch(request)
+            let items = try viewContext.fetch(request)
+            // 🔥 Firebase에 저장되지 않은 완료 항목만 동기화
+            firebaseManager.syncCoreDataWithFirebase(localTodos: items)
+            return items
         } catch {
             print("❌ Failed to fetch completed todo items: \(error.localizedDescription)")
             return []
@@ -100,6 +106,9 @@ struct PersistenceController {
         task.isCompleted.toggle()
         saveContext()
         firebaseManager.updateTodoInFirebase(todo: task)
+        
+        let count = completedFetchRequest().count
+        userService.updateTaskCount(count)
     }
     
     // ✅ 데이터 저장

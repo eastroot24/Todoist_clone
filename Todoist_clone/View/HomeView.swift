@@ -17,13 +17,36 @@ struct HomeView: View {
         VStack {
             headerView
             if let user = userService.currentUser {
-                Text("환영합니다, \(user.name)님!")
-                    .font(.title2)
-                    .fontWeight(.bold)
+                //랭크 표시
+                VStack(alignment: .leading) {
+                    Text("랭크: \(user.rank)")
+                        .font(.title3.bold())
+                    
+                    let completedCount = user.taskCount
+                    let progress = todoListViewModel.rankProgress(currentRank: user.rank, currentCount: completedCount)
+                    let info = todoListViewModel.rankProgressInfo(currentRank: user.rank, currentCount: completedCount)
+                    
+                    VStack(alignment: .leading) {
+                        ProgressView(value: progress)
+                            .tint(.blue)
+                            .frame(height: 10)
+                        
+                        HStack {
+                            Spacer()
+                            if let nextRank = info.nextRank, let remaining = info.remaining, nextRank != "최고 랭크" {
+                                Text("→ \(nextRank)까지 \(remaining)개 남음")
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                            } else {
+                                Text("최고 랭크 달성!")
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                    }
+                }
+                .padding()
                 
-                Text("현재 등급: \(user.rank)")
-                    .font(.headline)
-                    .foregroundColor(.blue)
                 
                 Text("할 일 개수: \(todoListViewModel.todoItems.count)")
                     .font(.subheadline)
@@ -136,8 +159,4 @@ struct HomeView: View {
         formatter.dateFormat = "MM월 dd일 eeee"
         return formatter.string(from: date)
     }
-}
-
-#Preview {
-    //    HomeView(viewContext: .init(), todoList: .init(), showSheet: .constant(false))
 }
