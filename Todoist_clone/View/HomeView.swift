@@ -137,7 +137,3 @@ struct HomeView: View {
         return formatter.string(from: date)
     }
 }
-
-#Preview {
-    //    HomeView(viewContext: .init(), todoList: .init(), showSheet: .constant(false))
-}
