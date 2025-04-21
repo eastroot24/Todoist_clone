@@ -1,0 +1,20 @@
+{
+  "" : {
+    "const-values" : "/Users/eastroot/Desktop/Development/app/Todoist_clon/build/Pods.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseSharedSwift-master.swiftconstvalues",
+    "dependencies" : "/Users/eastroot/Desktop/Development/app/Todoist_clon/build/Pods.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseSharedSwift-master.d",
+    "diagnostics" : "/Users/eastroot/Desktop/Development/app/Todoist_clon/build/Pods.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseSharedSwift-master.dia",
+    "emit-module-dependencies" : "/Users/eastroot/Desktop/Development/app/Todoist_clon/build/Pods.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseSharedSwift-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/eastroot/Desktop/Development/app/Todoist_clon/build/Pods.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseSharedSwift-master-emit-module.dia",
+    "swift-dependencies" : "/Users/eastroot/Desktop/Development/app/Todoist_clon/build/Pods.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseSharedSwift-master.swiftdeps"
+  },
+  "/Users/eastroot/Desktop/Development/app/Todoist_clon/Pods/FirebaseSharedSwift/FirebaseSharedSwift/Sources/FirebaseRemoteConfigValueDecoding.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseRemoteConfigValueDecoding.o",
+    "llvm-bc" : "/Users/eastroot/Desktop/Development/app/Todoist_clon/build/Pods.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseRemoteConfigValueDecoding.bc",
+    "object" : "/Users/eastroot/Desktop/Development/app/Todoist_clon/build/Pods.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseRemoteConfigValueDecoding.o"
+  },
+  "/Users/eastroot/Desktop/Development/app/Todoist_clon/Pods/FirebaseSharedSwift/FirebaseSharedSwift/Sources/third_party/FirebaseDataEncoder/FirebaseDataEncoder.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseDataEncoder.o",
+    "llvm-bc" : "/Users/eastroot/Desktop/Development/app/Todoist_clon/build/Pods.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseDataEncoder.bc",
+    "object" : "/Users/eastroot/Desktop/Development/app/Todoist_clon/build/Pods.build/Release-iphoneos/FirebaseSharedSwift.build/Objects-normal/arm64/FirebaseDataEncoder.o"
+  }
+}
