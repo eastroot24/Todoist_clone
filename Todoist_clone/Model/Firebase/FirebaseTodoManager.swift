@@ -42,6 +42,7 @@ class FirebaseTodoManager {
         let todoData: [String: Any] = [
             "id": todoId,
             "title": todo.title ?? "",
+            "content": todo.content ?? "",
             "date": Timestamp(date: todoDate),
             "isCompleted": todo.isCompleted
         ]

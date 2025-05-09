@@ -49,8 +49,8 @@ class TodoListViewModel: ObservableObject {
     }
     
     // ✅ 새로운 TodoItem 추가
-    func addItem(title: String, date: Date) {
-        persistenceController.addItem(title: title, date: date)
+    func addItem(title: String, content: String, date: Date) {
+        persistenceController.addItem(title: title, date: date, content: content)
         fetchTodoItems()
         fetchCompletedItems()
     }

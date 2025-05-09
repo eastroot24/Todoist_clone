@@ -9,9 +9,10 @@ import SwiftUI
 struct AddTaskView: View {
     @Environment(\.dismiss) var dismiss
     @State var newTask: String = ""
+    @State var newContent: String = ""
     @State var newDate: Date = Date()
     @EnvironmentObject var userService: UserService
-    var addTask: (String, Date) -> Void
+    var addTask: (String,String,Date) -> Void
     @EnvironmentObject var todoListViewModel: TodoListViewModel
 
     var body: some View {
@@ -19,13 +20,18 @@ struct AddTaskView: View {
             VStack {
                 TextField("할 일을 입력하세요", text: $newTask)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                TextField("내용을 입력하세요", text: $newContent)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                 VStack{
                     DatePicker("날짜 선택", selection: $newDate, displayedComponents: .date)
-                                   .datePickerStyle(.wheel) // 휠 스타일 적용
+                        .datePickerStyle(.graphical)
+                                   .environment(\.locale, Locale(identifier: "ko_KR"))
+                    DatePicker("시간 선택", selection: $newDate, displayedComponents: .hourAndMinute)
+                        .datePickerStyle(.wheel) // 휠 스타일 적용
                                    .environment(\.locale, Locale(identifier: "ko_KR"))
                     Button("저장") {
                         //userService.updateTaskCount(todoListViewModel.todoItems.count)
-                        addTask(newTask, newDate)
+                        addTask(newTask,newContent,newDate)
                         dismiss() // 입력 후 창 닫기
                         newTask = "" // 입력값 초기화
                     }

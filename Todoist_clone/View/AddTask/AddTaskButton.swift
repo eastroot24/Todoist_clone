@@ -32,8 +32,8 @@ struct AddTaskButton: View {
         }
     }
     //MARK: - Add Task
-    func addTask    (task: String, date: Date){
-        todoListViewModel.addItem(title: task, date: date)
+    func addTask    (task: String, content: String, date: Date){
+        todoListViewModel.addItem(title: task, content: content, date: date)
     }
 
 }

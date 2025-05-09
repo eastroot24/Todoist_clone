@@ -38,7 +38,7 @@ struct PersistenceController {
     // ✅ Core Data에서 할 일 목록 가져오기 (Firebase와 동기화)
     mutating func fetchTodoItems() -> [TodoItem] {
         let request: NSFetchRequest<TodoItem> = TodoItem.fetchRequest()
-        request.predicate = NSPredicate(format: "isCompleted == false")
+        //request.predicate = NSPredicate(format: "isCompleted == false")
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         
         do {
@@ -72,13 +72,14 @@ struct PersistenceController {
     }
     
     // ✅ 새로운 TodoItem 추가 (Core Data + Firebase 저장)
-    mutating func addItem(title: String, date: Date) {
+    mutating func addItem(title: String, date: Date, content: String) {
         let todoItem = TodoItem(context: viewContext)
         todoItem.id = UUID()
         todoItem.title = title
+        todoItem.content = content
         todoItem.date = date
         todoItem.isCompleted = false
-        
+        todoItem.content = content
         saveContext()
         
         // 🔥 Firebase에도 바로 저장
