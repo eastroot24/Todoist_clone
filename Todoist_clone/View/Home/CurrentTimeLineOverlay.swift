@@ -1,30 +1,34 @@
 //
-//  CurrentTimeLineView.swift
+//  CurrentTimeLineOverlay.swift
 //  Todoist_clone
 //
-//  Created by eastroot on 5/9/25.
+//  Created by eastroot on 5/13/25.
 //
+
 import SwiftUI
 
-struct CurrentTimeLineView: View {
+struct CurrentTimeLineOverlay: View {
+    let offsetY: CGFloat
     let currentDate: Date
 
     var body: some View {
         HStack(spacing: 4) {
             Text(currentTimeFormatted)
                 .font(.caption2)
-                .foregroundColor(.blue)
+                .foregroundColor(.red)
                 .frame(width: 45, alignment: .trailing)
 
             Circle()
-                .fill(Color.blue)
-                .frame(width: 8, height: 8)
+                .fill(Color.red)
+                .frame(width: 6, height: 6)
 
             Rectangle()
-                .fill(Color.blue)
-                .frame(height: 1)
+                .fill(Color.red)
+                .frame(height: 2)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .id("currentTime")
         }
-        .id("currentTime")
+        .offset(y: offsetY)
     }
 
     private var currentTimeFormatted: String {
@@ -33,7 +37,3 @@ struct CurrentTimeLineView: View {
         return formatter.string(from: currentDate)
     }
 }
-
-
-
-

@@ -23,6 +23,7 @@ struct Main: View {
             FirstHeader()
             TabView(selection: $selection) {
                 HomeView()
+                    .background(Color("BackgroundColor"))
                     .tabItem {
                         Image(systemName: "clock")
                             .resizable()
@@ -33,6 +34,7 @@ struct Main: View {
                     .tag(0)
                 
                 DiaryView()
+                    .background(Color("BackgroundColor"))
                     .tabItem {
                         Image(systemName: "pencil.and.scribble")
                             .resizable()
@@ -42,9 +44,8 @@ struct Main: View {
                             .fontWeight(.bold)
                     }
                     .tag(1)
-                
-                //NextView(todoListViewModel: todoListViewModel)
                 CalendarView()
+                    .background(Color("BackgroundColor"))
                     .tabItem {
                         Image(systemName: "calendar")
                             .resizable()
@@ -56,6 +57,7 @@ struct Main: View {
                     .tag(2)
                 
                 SearchView(todoListViewModel: todoListViewModel)
+                    .background(Color("BackgroundColor"))
                     .tabItem {
                         Image(systemName: "magnifyingglass")
                             .resizable()
@@ -67,6 +69,7 @@ struct Main: View {
                     .tag(3)
                 
                 ManageView(todoListViewModel: todoListViewModel)
+                    .background(Color("BackgroundColor"))
                     .tabItem {
                         Image(systemName: "list.bullet")
                             .resizable()
@@ -77,7 +80,7 @@ struct Main: View {
                     }
                     .tag(4)
             }
-            .accentColor(Color.red)
+            .accentColor(Color.black)
         }
         .onAppear {
             selection = Main.getInitialTab(userPreference: userPreference)
@@ -88,6 +91,7 @@ struct Main: View {
         .onChange(of: userPreference.endHour) {
             updateTabSelection()
         }
+        .background(Color("BackgroundColor"))
     }
     
     // 지역에 따른 시간 불러오는 함수

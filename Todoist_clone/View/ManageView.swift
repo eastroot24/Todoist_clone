@@ -80,6 +80,7 @@ struct ManageView: View {
                 Spacer()
             }
         }
+        .background(Color("BackgroundColor"))
         .overlay(
             VStack{
                 Spacer()
@@ -89,9 +90,4 @@ struct ManageView: View {
             }
         )
     }
-}
-
-
-#Preview {
-    //ManageView(todoList: .init())
 }

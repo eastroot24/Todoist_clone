@@ -21,6 +21,7 @@ struct HomeView: View {
                 taskCardView()
                 Spacer()
             }
+            .background(Color("BackgroundColor"))
             .onAppear {
                 userService.fetchUserInfo()
             }

@@ -17,7 +17,7 @@ struct DiaryView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading, spacing: 20) {
+            VStack{
                 // 오늘 날짜 + 기분 선택
                 HStack {
                     Text(getTodayDate())
@@ -89,7 +89,7 @@ struct DiaryView: View {
 
                 Spacer()
             }
-            .padding(.top)
+            .background(Color("BackgroundColor"))
             .onAppear {
                 diaryViewModel.fetchDiary(for: savingGetTodayDate()) { savedEntry, savedMood in
                     self.entry = savedEntry

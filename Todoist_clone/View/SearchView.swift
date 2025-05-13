@@ -65,6 +65,7 @@ struct SearchView: View {
                     }
                 }
             }
+            .background(Color("BackgroundColor"))
             .overlay(
                 VStack{
                     Spacer()
@@ -76,6 +77,7 @@ struct SearchView: View {
             
         }
         .navigationTitle("검색")
+        .background(Color("BackgroundColor"))
     }
     
     // 📅 날짜 포맷
@@ -104,8 +106,3 @@ struct SearchView: View {
         }
     }
 }
-
-#Preview {
-    //SearchView(todoList: .init(), showSheet: .constant(false))
-}
-
